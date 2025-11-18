@@ -24,9 +24,13 @@ function Footer() {
             if (item.label === "Home") {
                 window.location.replace("/");
             } else {
-                navigate("/");
+                if (item.href.includes("/")) {
+                    navigate(item.href);
+                } else {
+                    navigate("/");
 
-                setTimeout(() => document.getElementById(item.href)?.scrollIntoView({ behavior: "smooth" }), 400);
+                    setTimeout(() => document.getElementById(item.href)?.scrollIntoView({ behavior: "smooth" }), 400);
+                }
             }
         }
     }

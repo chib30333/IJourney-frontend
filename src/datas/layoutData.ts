@@ -18,14 +18,14 @@ export const headerData = {
         { label: "Home", hasDropdown: false, active: true, href: "/" },
         { label: "Course Map", hasDropdown: true, active: false },
         { label: "My Progress", hasDropdown: false, active: false, href: "overRallProgress" },
-        { label: "About Us", hasDropdown: false, active: false, href: "video" },
+        { label: "About Us", hasDropdown: false, active: false, href: "/aboutUs" },
     ]
 };
 
 export const footerData = {
     quickLinks: [
         { label: "Home", href: "/" },
-        { label: "About Us", href: "video" },
+        { label: "About Us", href: "/aboutUs" },
         { label: "Milestones", href: "milestones" },
         { label: "Overall Progress", href: "overRallProgress" },
     ],

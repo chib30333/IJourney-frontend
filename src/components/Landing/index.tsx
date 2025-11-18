@@ -7,6 +7,7 @@ import Milestones from "./Milestones";
 import Testimonial from "./Testimonial";
 import ContactUs from "./ContactUs";
 import Video from "./EducationVideo";
+import AboutUs from "./AboutUs";
 
 export {
     HeroSection,
@@ -17,5 +18,6 @@ export {
     Milestones,
     Testimonial,
     ContactUs,
-    Video
+    Video,
+    AboutUs
 }

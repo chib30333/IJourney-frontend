@@ -142,7 +142,7 @@ function HeroSection() {
                         <div className="grid grid-cols-2 gap-3 gap-y-10">
                             {heroSectionData.guidePosts.map((post, index) => (
                                 index % 2 === 0 ? (
-                                    <div key={index} className={`flex flex-col sm:flex-row gap-2 h-full cursor-pointer text-[12px] transition-colors hover:bg-[${post.hoverBgColor}] justify-between items-center sm:rounded-[200px_0px_0px_200px] bg-[${post.bgColor}] p-3 pr-2 max-w-[200px] text-black font-bold`}>
+                                    <div key={index} className={`flex flex-col sm:flex-row gap-2 h-full cursor-pointer text-[12px] transition-colors hover:bg-[${post.hoverBgColor}] justify-between items-center sm:rounded-[200px_0px_0px_200px] bg-[${post.bgColor}] p-3 pr-2 max-w-[200px] text-black font-bold opacity-0 animate-fade-in [animation-delay:${index + 1}00ms]`}>
                                         <div className={`p-1 bg-[${post.ImageColor}] rounded-full`}>
                                             <img src={post.image} alt="" className="rounded-full w-12 h-12 min-h-12 min-w-12" />
                                         </div>
@@ -153,7 +153,7 @@ function HeroSection() {
                                     </div>
                                 ) :
                                     (
-                                        <div key={index} className={`flex flex-col sm:flex-row gap-2 h-full cursor-pointer text-[12px] transition-colors hover:bg-[${post.hoverBgColor}] justify-between items-center sm:rounded-[0px_200px_200px_0px] bg-[${post.bgColor}] p-3 pl-2 max-w-[200px] text-black font-bold`}>
+                                        <div key={index} className={`flex flex-col sm:flex-row gap-2 h-full cursor-pointer text-[12px] transition-colors hover:bg-[${post.hoverBgColor}] justify-between items-center sm:rounded-[0px_200px_200px_0px] bg-[${post.bgColor}] p-3 pl-2 max-w-[200px] text-black font-bold opacity-0 animate-fade-in [animation-delay:${index}00ms]`}>
                                             <div className="flex flex-col">
                                                 <span>{post.number}.</span>
                                                 <span>{post.description}</span>
@@ -221,10 +221,10 @@ function HeroSection() {
                         </div>
                     </div>
                 </div>
-                <div className="flex-1 w-full">
+                <div className="flex-1 w-full opacity-0 animate-fade-in [animation-delay:200ms]">
                     {!user ?
-                        <Card className="w-full border-0 rounded-none m-auto bg-white shadow-[0px_4px_10px_rgba(0,0,0,0.1)] max-w-[460px]">
-                            <CardContent className="flex flex-col items-center gap-10 p-10">
+                        <Card className="w-full border-0 rounded-none m-auto max-w-[460px]">
+                            <CardContent className="flex flex-col items-center bg-white shadow-[0px_10px_10px_rgba(0,0,0,0.25)] gap-10 p-10">
                                 <h4 className="text-center uppercase font-bold wrap-anywhere">
                                     Create Account
                                 </h4>

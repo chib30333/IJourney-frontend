@@ -39,9 +39,13 @@ function Header() {
             if (item.label === "Home") {
                 window.location.replace("/");
             } else {
-                navigate("/");
-                
-                setTimeout(() => document.getElementById(item.href)?.scrollIntoView({ behavior: "smooth" }), 400);
+                if (item.href.includes("/")) {
+                    navigate(item.href);
+                } else {
+                    navigate("/");
+
+                    setTimeout(() => document.getElementById(item.href)?.scrollIntoView({ behavior: "smooth" }), 400);
+                }
             }
         }
     }

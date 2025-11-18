@@ -10,6 +10,7 @@ import {
 
 import Landing from './pages/Landing';
 import NotFound from './pages/NotFound';
+import AboutUs from './pages/AboutUs';
 import {
   Login,
   Register,
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <Landing /> },
+      { path: "aboutUs", element: <AboutUs /> },
     ]
   },
 
