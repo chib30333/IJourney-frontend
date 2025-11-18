@@ -35,13 +35,13 @@ function Header() {
     };
 
     const handlePage = (item: any) => {
-        if (!item.hasDropdown) {
+        if (!item?.hasDropdown) {
             if (item.label === "Home") {
                 window.location.replace("/");
-            } else if(item.label === "About") {
-                navigate(`${item.href}`);
             } else {
-                document.getElementById(item.href)?.scrollIntoView({ behavior: "smooth" });
+                navigate("/");
+                
+                setTimeout(() => document.getElementById(item.href)?.scrollIntoView({ behavior: "smooth" }), 400);
             }
         }
     }
@@ -71,7 +71,7 @@ function Header() {
 
     return (
         <section className="flex flex-col items-start z-4 w-full fixed" id="">
-            <nav className="flex sm:justify-between items-center w-full bg-custom px-8 py-4">
+            <nav className="flex sm:justify-between items-center w-full bg-custom px-8 py-4 shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                 <div className="flex justify-between items-center relative flex-1 text-white">
                     <a href="/">
                         <img
@@ -138,7 +138,7 @@ function Header() {
                 </div>
             </nav>
             <div className={`w-full justify-center relative hidden lg:flex`}>
-                <ul className="text-black bg-white px-8 rounded-full shadow-2xl text-[16px] absolute -top-6 flex flex-col lg:flex-row">
+                <ul className="text-black bg-white px-8 rounded-full shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-[16px] absolute -top-6 flex flex-col lg:flex-row">
                     {headerData.navItems.map((item, index) => (
                         <li
                             key={index}

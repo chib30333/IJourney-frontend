@@ -13,7 +13,7 @@ function Milestones() {
     }
 
     return (
-        <section className="w-full bg-linear-to-br from-green-50 to-white py-12 lg:py-20">
+        <section className="w-full bg-linear-to-br from-green-50 to-white py-12 lg:py-20" id='milestones'>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                 <div className="flex flex-col items-center">
                     <div className="relative items-center text-white">
@@ -46,9 +46,9 @@ function Milestones() {
                                         </Badge>
                                     </div>
                                     <div className="flex flex-col gap-4">
-                                        <h3 className="font-bold text-[#4f556b] text-2xl sm:text-3xl">
+                                        <span className="font-bold text-[#4f556b] text-3xl text-center">
                                             {milestone.title}
-                                        </h3>
+                                        </span>
                                         <p className="font-bold text-[#4f556b] text-base leading-5">
                                             {milestone.description}
                                         </p>

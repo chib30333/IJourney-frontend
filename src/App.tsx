@@ -9,7 +9,6 @@ import {
 } from './layouts';
 
 import Landing from './pages/Landing';
-import TalkingAboutUs from './pages/TalkingAboutUs';
 import NotFound from './pages/NotFound';
 import {
   Login,
@@ -49,7 +48,6 @@ const router = createBrowserRouter([
       { path: "register", element: <Register /> },
       { path: "forgot-password", element: <ForgotPassword /> },
       { path: "update-password", element: <UpdatePassword /> },
-      { path: "about", element: <TalkingAboutUs /> },
     ],
   },
 

@@ -140,7 +140,7 @@ export const milestoneData = {
             id: 1,
             time: "99:41",
             name: "Milestone 1",
-            title: "M1.1: Your Inner Compass",
+            title: "Your Inner Compass",
             description:
                 'Focuses on self-reflection to discover your "why" or motivation that will keep you going.',
             status: "completed",
@@ -152,7 +152,7 @@ export const milestoneData = {
             id: 2,
             time: "59:41",
             name: "Milestone 2",
-            title: "M1.2: What’s the Difference",
+            title: "What’s the Difference?",
             description:
                 "Centers on uncovering your unique strengths, character traits, and treasures.",
             status: "completed",
@@ -164,7 +164,7 @@ export const milestoneData = {
             id: 3,
             time: "20:00",
             name: "Milestone 3",
-            title: "M1.3: Exploring Your Emotions",
+            title: "Exploring Your Emotions",
             description:
                 "Guides you through career exploration including Career Assessment and O*NET Job Zones.",
             status: "continue",
@@ -176,7 +176,7 @@ export const milestoneData = {
             id: 4,
             time: "00:00",
             name: "Milestone 4",
-            title: "M1.4:The Interactive Feelings Wheel",
+            title: "The Interactive Feelings Wheel",
             description:
                 "Focuses on identifying and utilizing school and community resources to support your dreams.",
             status: "locked",
@@ -188,7 +188,7 @@ export const milestoneData = {
             id: 5,
             time: "00:00",
             name: "Milestone 5",
-            title: "M1.5: Identifying Your True North",
+            title: "Identifying Your True North",
             description:
                 "Explores advanced self-discovery techniques and personal growth strategies.",
             status: "locked",
@@ -200,7 +200,7 @@ export const milestoneData = {
             id: 6,
             time: "00:00",
             name: "Milestone 6",
-            title: "M1.6: The Guiding Questions",
+            title: "The Guiding Questions",
             description:
                 "Develops leadership skills and community engagement opportunities.",
             status: "locked",
@@ -212,7 +212,7 @@ export const milestoneData = {
             id: 7,
             time: "00:00",
             name: "Milestone 7",
-            title: "M1.7: Journeyer's Statement Builder",
+            title: "Journeyer's Statement Builder",
             description:
                 "Final integration of all learnings and creation of your personal action plan.",
             status: "locked",

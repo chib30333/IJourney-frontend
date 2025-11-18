@@ -254,12 +254,11 @@ section.slide {
   background-repeat: no-repeat;
 }
 
-input::placeholder {
+input::placeholder, textarea::placeholder {
   color: #818181;
 }
 
-input {
-  color: black;
+input, textarea {
   text-indent: 8px;
 }
 
