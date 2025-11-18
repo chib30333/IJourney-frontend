@@ -21,12 +21,6 @@ import BlindEye from '../../assets/image/blind-eye.svg';
 import BlindEyeOpen from '../../assets/image/blind-eye-open.svg';
 import ImageHeader from '../../assets/image/guide-posts/title.png';
 import ImageBook from '../../assets/image/book.png';
-// import IconLamp from '../../assets/image/guide-posts/lamp.jpg';
-// import IconBrain from '../../assets/image/guide-posts/key.png';
-// import IconControl from '../../assets/image/guide-posts/control-panel.jpg';
-// import IconPerson from '../../assets/image/guide-posts/person.png';
-// import IconMark from '../../assets/image/guide-posts/person-mark.png';
-// import IconFriend from '../../assets/image/guide-posts/two-people.png';
 
 
 function HeroSection() {

@@ -6,7 +6,7 @@ import { Input } from '../../elements/input';
 import { Card, CardContent } from "../../elements/card";
 
 import CloseIcon from "../../assets/image/icon-close.svg";
-import CloseIconCircle from "../../assets/image/icon-close-circle.svg";
+import CloseIconCircle from "../../assets/image/icon-closecircle.svg";
 import BotImage from "../../assets/image/bot.jfif";
 import IconVector1 from "../../assets/image/icon-1.svg";
 import IconVector2 from "../../assets/image/icon-2.svg";
