@@ -1,0 +1,53 @@
+// src/controllers/courseController.ts
+import { api } from "../lib/api";
+
+export type Milestone = {
+    id: string;
+    title: string;
+    description?: string;
+    fields?: Array<{ name: string; label: string; type: string; options?: string[] }>;
+    order?: number;
+};
+
+// GET /api/courses  (be sure your backend mounts getAllMilestones on this route)
+export const listMilestones = () =>
+    api<{ milestones: Milestone[] }>("/api/courses");
+
+// GET /api/courses/:milestoneId
+export const getMilestone = (milestoneId: string) =>
+    api<Milestone>(`/api/courses/${milestoneId}`);
+
+export const introduce = (payload: {
+    userId: string;
+    responses: Record<string, unknown>;
+}) =>
+    api<{ message: string }>(`/api/courses/introduction`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+})
+// POST /api/courses/:milestoneId/submit
+export const submitMilestone = (milestoneId: string, payload: {
+    userId: string;
+    responses: Record<string, unknown>;
+}) =>
+    api<{ message: string }>(`/api/courses/${milestoneId}/submit`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+    });
+
+// POST /api/courses/:milestoneId/draft  (mount saveDraftResponse)
+export const saveDraft = (milestoneId: string, payload: {
+    userId: string;
+    responses: Record<string, unknown>;
+}) =>
+    api<{ message: string }>(`/api/courses/${milestoneId}/draft`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+    });
+
+// POST /api/courses/unlock
+export const unlockNext = (payload: { userId: string; milestoneId: string }) =>
+    api<{ message: string }>("/api/courses/unlock", {
+        method: "POST",
+        body: JSON.stringify(payload),
+    });
