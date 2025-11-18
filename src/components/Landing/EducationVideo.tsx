@@ -3,7 +3,7 @@ import ImagePlayButton from "../../assets/image/play-btn.svg";
 function Video() {
     return (
         <section className="flex items-start gap-3 py-0 w-full" id="video">
-            <div className="flex flex-col items-start gap-3 px-6 pb-20 flex-1">
+            <div className="flex flex-col items-start gap-3 px-6 flex-1">
                 <div className="flex flex-col items-start gap-10 w-full">
                     <div className="flex flex-col items-center gap-20 w-full bg-[#f0f0f0] py-20 relative">
                         <div className="w-full flex flex-col gap-6 justify-center items-center z-3">

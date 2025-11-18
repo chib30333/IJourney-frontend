@@ -2,8 +2,12 @@ import GoogleMapView from "../../components/GoogleMapView";
 import ImageAboutUs from '../../assets/image/aboutus.png';
 
 function AboutUs() {
+  const handelScrollTop = () => {
+    window.scrollTo(0, 0);
+  }
+
   return (
-    <div className="mt-[120px] pb-20">
+    <div className="mt-[120px] pb-20" onLoad={handelScrollTop}>
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="w-full max-w-5xl">
           <h1 className="mb-4 text-2xl font-semibold">

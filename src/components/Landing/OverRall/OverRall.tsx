@@ -10,8 +10,8 @@ function OverRall() {
     const completed = Array.from({ length: current }, (_, i) => i + 1)
 
     return (
-        <section className="flex items-start gap-3 py-0 w-full">
-            <div className="flex flex-col items-start gap-3 px-6 py-20 flex-1" id="overRallProgress">
+        <section className="flex items-start gap-3 py-10 w-full" id="overRallProgress">
+            <div className="flex flex-col items-start gap-3 px-6 py-20 flex-1">
                 <div className="flex flex-col items-start gap-10 w-full">
                     <div className="flex flex-col items-center gap-[50px] w-full">
                         <div className="relative items-center text-white">
