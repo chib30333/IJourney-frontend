@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../firebaseConfig';
+import { useAuth } from '../../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { login } from '../../../controllers/authController';
 import { loginData } from '../../../datas/authData';
 import { validateLoginForm } from '../../../lib/validation';
 import toast from 'react-hot-toast';
@@ -21,6 +19,7 @@ import IconLeftArrow from "../../../assets/image/left-arrow.svg";
 
 function Login() {
     const navigate = useNavigate();
+    const { loginWithEmailPassword } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const [inputValues, setInputValues] = useState({
         email: "",
@@ -44,9 +43,7 @@ function Login() {
         setLoading(true);
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            const idToken = await auth.currentUser!.getIdToken();
-            await login(idToken);
+            await loginWithEmailPassword(email, password);
             setInputValues({ email: "", password: "" });
 
             toast.success("Login successful!");
@@ -54,7 +51,7 @@ function Login() {
             navigate('/')
         } catch (error: any) {
             toast.error(error.message);
-            console.log("Firebase error:", error.message);
+            console.log("Login error:", error.message);
         } finally {
             setLoading(false);
         }

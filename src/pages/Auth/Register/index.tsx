@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, Link } from 'react-router-dom';
-import { login, register } from '../../../controllers/authController';
+import { useAuth } from '../../../context/AuthContext';
+import { register } from '../../../controllers/authController';
 import type { InputValues } from '../../../lib/types';
 import { registerData } from '../../../datas/authData';
 import { validateRegisterForm } from '../../../lib/validation';
-import { auth } from '../../../firebaseConfig';
 
 import {
     Button,
@@ -17,10 +17,10 @@ import BlindEye from "../../../assets/image/blind-eye.svg";
 import BlindEyeOpen from "../../../assets/image/blind-eye-open.svg";
 import ImageBrand from "../../../assets/image/landing.jpg";
 import IconLeftArrow from "../../../assets/image/left-arrow.svg";
-import { signInWithEmailAndPassword } from 'firebase/auth';
 
 function Register() {
     const navigate = useNavigate();
+    const { loginWithEmailPassword } = useAuth();
     const [showPassword, setShowPassword] = useState([false, false]);
     const [inputValues, setInputValues] = useState<InputValues>({
         name: "",
@@ -52,17 +52,8 @@ function Register() {
             if (data.success) {
                 toast.success(data.message);
 
-                await signInWithEmailAndPassword(auth, email, password);
-                const idToken = await auth.currentUser!.getIdToken();
-                const loginData = await login(idToken);
-
-                console.log(loginData);
-                
-                if (loginData.success) {
-                    toast.success(loginData.message);
-                } else {
-                    toast.error(loginData.message);
-                }
+                await loginWithEmailPassword(email, password);
+                setInputValues({ name: "", email: "", password: "", confirmPassword: "" });
             } else {
                 toast.error(data.message);
             }

@@ -60,7 +60,7 @@ function ForgotPassword() {
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
                                             type="email"
-                                            className="border-0 border-b border-ib rounded-none px-0 h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-ib"
+                                            className="border-0 border-b border-ib text-black rounded-none px-0 h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-ib"
                                         />
                                         
                                     </div>

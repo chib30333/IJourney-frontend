@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useAuth } from "../../../context/AuthContext";
 import { logout as logoutUser } from "../../../controllers/authController";
+import toast from "react-hot-toast";
 import {
     ChevronDownIcon,
     SearchIcon,
@@ -26,8 +27,8 @@ import UserProfileImage from "../../../assets/image/avatar/avatar4.jfif";
 import { headerData } from "../../../datas/layoutData";
 
 function Header() {
-    const { user, logout } = useAuth();
     const navigate = useNavigate();
+    const { user, logout } = useAuth();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const goToLogin = () => {
@@ -44,7 +45,7 @@ function Header() {
                 } else {
                     navigate("/");
 
-                    setTimeout(() => document.getElementById(item.href)?.scrollIntoView({ behavior: "smooth" }), 400);
+                    setTimeout(() => document.getElementById(item.href)?.scrollIntoView({ behavior: "smooth" }), 300);
                 }
             }
         }
@@ -64,7 +65,13 @@ function Header() {
 
     const onLogout = async () => {
         try {
-            await logoutUser();
+            const data = await logoutUser();
+
+            if(data.success) {
+                toast.success(data.message);
+            } else {
+                toast.error(data.message);
+            }
         }
         catch (error) {
 

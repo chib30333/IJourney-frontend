@@ -29,7 +29,7 @@ export const register = async (name: string, email: string, password: string, ro
         return data;
     } catch (error: any) {
         console.error("Error Sign Up:", error);
-        
+
         throw new Error("Failed to sign up", {
             cause: error,
         });
@@ -38,11 +38,11 @@ export const register = async (name: string, email: string, password: string, ro
 
 export const logout = async () => {
     try {
-        const data = await api(`/api/auth/logout`, { method: "POST" }); // revokes refresh tokens server-side
+        const data = await api<{ message: string, success: boolean }>(`/api/auth/logout`, { method: "POST" }); // revokes refresh tokens server-side
         return data;
     } catch (error: any) {
         console.error("Error Log Out:", error);
-        
+
         throw new Error("Failed to log out", {
             cause: error,
         });
@@ -58,7 +58,7 @@ export const forgotPassword = async (email: string) => {
         return data;
     } catch (error: any) {
         console.error("Error Forgot Password:", error);
-        
+
         throw new Error("Failed to forgot password", {
             cause: error,
         });
@@ -74,7 +74,7 @@ export const verified = async () => {
         return data;
     } catch (error: any) {
         console.error("Error Forgot Password:", error);
-        
+
         throw new Error("Failed to forgot password", {
             cause: error,
         });

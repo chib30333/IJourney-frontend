@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, Link } from 'react-router-dom';
 import type { InputValues } from '../../lib/types';
-import { auth } from '../../firebaseConfig';
+import { useAuth } from '../../context/AuthContext';
 import { heroSectionData } from '../../datas/landingData';
 import { validateRegisterForm } from '../../lib/validation';
-import { login, register } from '../../controllers/authController';
-import { useAuth } from '../../hooks';
+import { register } from '../../controllers/authController';
 import { unlockNext } from '../../controllers/courseController';
 
 import {
@@ -22,11 +21,10 @@ import BlindEye from '../../assets/image/blind-eye.svg';
 import BlindEyeOpen from '../../assets/image/blind-eye-open.svg';
 import ImageHeader from '../../assets/image/guide-posts/title.png';
 import ImageBook from '../../assets/image/book.png';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 function HeroSection() {
-    const user = useAuth();
+    const { user, loginWithEmailPassword } = useAuth();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState<Array<boolean>>([false, false]);
     const [inputValues, setInputValues] = useState<InputValues>({
@@ -56,25 +54,13 @@ function HeroSection() {
 
         try {
             const data = await register(name, email, password, "user");
-            setInputValues({ name: "", email: "", password: "", confirmPassword: "" });
-
 
             console.log(data)
             if (data.success) {
                 toast.success(data.message);
-                
-                await signInWithEmailAndPassword(auth, email, password);
-                const idToken = await auth.currentUser!.getIdToken();
 
-                const loginData = await login(idToken);
-
-                console.log(loginData);
-                
-                if (loginData.success) {
-                    toast.success(loginData.message);
-                } else {
-                    toast.error(loginData.message);
-                }
+                await loginWithEmailPassword(email, password);
+                setInputValues({ name: "", email: "", password: "", confirmPassword: "" });
             } else {
                 toast.error(data.message);
             }

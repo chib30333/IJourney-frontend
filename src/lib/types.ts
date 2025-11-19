@@ -22,6 +22,8 @@ export interface UserProfile {
   preferences?: Record<string, unknown>;
   createdAt?: string;  // ISO in API responses
   lastLogin?: string;
+  progress?: UserProgressDoc;
+  currentMilestone: string;
 }
 
 // src/types/courses.ts
