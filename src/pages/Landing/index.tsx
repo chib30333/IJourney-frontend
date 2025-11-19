@@ -1,4 +1,14 @@
-import { Features, OverRall, Continue, Milestones, Video, HeroSection, AboutUs } from '../../components';
+import BackToTop from '../../components/BackToTop';
+import { 
+    Features, 
+    OverRall, 
+    Continue, 
+    Milestones, 
+    Video, 
+    HeroSection, 
+    AboutUs 
+} from '../../components';
+
 function Landing() {
     return (
         <div className="w-full scroll-smooth">
@@ -12,6 +22,7 @@ function Landing() {
                 <Milestones />
                 <AboutUs />
             </div>
+            <BackToTop />
         </div>
     )
 }

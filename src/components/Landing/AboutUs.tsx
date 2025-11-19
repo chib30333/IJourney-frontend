@@ -30,13 +30,13 @@ function AboutUs() {
                                         strengths, and goals.
                                         From our home in Simpsonville, South Carolina, we’re proud to serve people seeking growth, healing, or direction.
                                     </h5>
-                                    <h5>
+                                    <p>
                                         <span className="font-bold text-ib-1">You’ll find our team at:</span>
 
-                                        <h6>3104 Grandview Drive</h6>
-                                        <h6>Suite B</h6>
-                                        <h6>Simpsonville, SC 29680</h6>
-                                    </h5>
+                                        <span>3104 Grandview Drive</span>
+                                        <span>Suite B</span>
+                                        <span>Simpsonville, SC 29680</span>
+                                    </p>
                                     <h5 className="font-bold italic">Together, let’s discover the purpose that’s been within you all along.</h5>
                                 </div>
                             </div>

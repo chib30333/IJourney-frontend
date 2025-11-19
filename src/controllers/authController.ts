@@ -2,7 +2,7 @@ import { api } from '../lib/api';
 
 export const login = async (idToken: string) => {
     try {
-        const data = await api<{ message: string; user: any }>(`/api/auth/login`, {
+        const data = await api<{ message: string; user: any, success: boolean }>(`/api/auth/login`, {
             method: "POST",
             body: JSON.stringify({ idToken }),
         });
@@ -17,7 +17,7 @@ export const login = async (idToken: string) => {
 
 export const register = async (name: string, email: string, password: string, role: string) => {
     try {
-        const data = await api<{ message: string; uid: string }>(`/api/auth/register`, {
+        const data = await api<{ message: string; uid: string, success: boolean }>(`/api/auth/register`, {
             method: "POST",
             body: JSON.stringify({
                 email,

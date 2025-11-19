@@ -108,7 +108,8 @@ function Login() {
                                                     type={field.type === "password" ? (showPassword ? "text" : "password") : field.type}
                                                     placeholder={field.placeholder}
                                                     onChange={handleChange}
-                                                    className="border-0 border-b border-ib rounded-none px-0 h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                                    autoComplete={field.id}
+                                                    className="border-0 border-b border-ib rounded-none px-0 h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
                                                 />
                                                 {field.type === "password" && (
                                                     <>

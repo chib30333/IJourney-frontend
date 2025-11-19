@@ -32,9 +32,9 @@ function AboutUs() {
                 <h5>
                   <span className="font-bold text-ib-1">You’ll find our team at:</span>
 
-                  <h6>3104 Grandview Drive</h6>
-                  <h6>Suite B</h6>
-                  <h6>Simpsonville, SC 29680</h6>
+                  <span>3104 Grandview Drive</span>
+                  <span>Suite B</span>
+                  <span>Simpsonville, SC 29680</span>
                 </h5>
                 <h5 className="font-bold italic">Together, let’s discover the purpose that’s been within you all along.</h5>
               </div>

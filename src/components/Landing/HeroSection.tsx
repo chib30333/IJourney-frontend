@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, Link } from 'react-router-dom';
 import type { InputValues } from '../../lib/types';
+import { auth } from '../../firebaseConfig';
 import { heroSectionData } from '../../datas/landingData';
 import { validateRegisterForm } from '../../lib/validation';
-import { register } from '../../controllers/authController';
+import { login, register } from '../../controllers/authController';
 import { useAuth } from '../../hooks';
 import { unlockNext } from '../../controllers/courseController';
 
@@ -21,6 +22,7 @@ import BlindEye from '../../assets/image/blind-eye.svg';
 import BlindEyeOpen from '../../assets/image/blind-eye-open.svg';
 import ImageHeader from '../../assets/image/guide-posts/title.png';
 import ImageBook from '../../assets/image/book.png';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 function HeroSection() {
@@ -38,6 +40,7 @@ function HeroSection() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log(inputValues);
 
         const { name, email, password, confirmPassword } = inputValues;
 
@@ -54,8 +57,27 @@ function HeroSection() {
         try {
             const data = await register(name, email, password, "user");
             setInputValues({ name: "", email: "", password: "", confirmPassword: "" });
-            console.log(data);
-            toast.success("🎉 Registration successful!");
+
+
+            console.log(data)
+            if (data.success) {
+                toast.success(data.message);
+                
+                await signInWithEmailAndPassword(auth, email, password);
+                const idToken = await auth.currentUser!.getIdToken();
+
+                const loginData = await login(idToken);
+
+                console.log(loginData);
+                
+                if (loginData.success) {
+                    toast.success(loginData.message);
+                } else {
+                    toast.error(loginData.message);
+                }
+            } else {
+                toast.error(data.message);
+            }
 
             navigate('/');
         } catch (error: any) {
@@ -85,7 +107,7 @@ function HeroSection() {
     }
 
     return (
-        <section className="pt-[120px] relative w-full slide flex justify-center">
+        <section className="pt-[120px] relative w-full slide flex justify-center min-h-screen">
             <div className="flex justify-center items-center md:justify-between flex-col lg:flex-row px-8 py-16 container gap-20 xl:gap-70">
                 <div className="flex items-center justify-center flex-1 text-white w-full gap-3">
                     {/* <div className="flex-col items-start gap-10 w-full flex">
@@ -244,6 +266,7 @@ function HeroSection() {
                                                         type={field.type === "password" ? (showPassword[index - 2] ? "text" : "password") : field.type}
                                                         placeholder={field.placeholder}
                                                         onChange={handleChange}
+                                                        autoComplete={field.id}
                                                         className="w-full rounded-none border text-[16px] border-solid px-3 py-6 border-gray-300 font-ib-1 font-normal tracking-[0.20px] bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
                                                     />
                                                     {field.type === "password" && (

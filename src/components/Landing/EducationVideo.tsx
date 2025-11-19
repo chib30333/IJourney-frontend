@@ -14,7 +14,7 @@ function Video() {
                                     </div>
                                 </div>
                             </div>
-                            <p className='text-center'>At <span className="font-bold text-red-500">RIZE</span>&nbsp;<span className="font-bold text-green-500">Prevention</span>, we want to inspire and equip you to make smart choices and have a strong purpose on 
+                            <p className='text-center'>At <span className="font-bold text-red-500 uppercase">Rize</span>&nbsp;<span className="font-bold text-green-500">Prevention</span>, we want to inspire and equip you to make smart choices and have a strong purpose on 
                                 the path in lifee</p>
                         </div>
                         <div className="flex flex-col justify-center items-center w-3/5 z-3">
