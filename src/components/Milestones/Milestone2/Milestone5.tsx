@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -12,13 +12,28 @@ import ImageEQ from "../../../assets/image/milestones/EQ.png";
 
 function EQ() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [reflection, setReflection] = useState<string>("");
+
+    useEffect(() => {
+        if (user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone2_5');
+
+                if (response) {
+                    console.log("response:", response);
+                    
+                    setReflection(response.responses.reflection as string);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
     const next = async () => {
         if (user) {
             try {
                 await submitMilestone('milestone2_5', { userId: user?.uid, responses: { reflection } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/6" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/6", prevMilestoneId: "milestone2/5" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import {
     Button,
@@ -9,12 +10,33 @@ import {
 import ImageLogo from '../../../assets/image/logo.svg';
 import ImageAuth from '../../../assets/image/auth1.png';
 import IconLeftArrow from '../../../assets/image/left-arrow.svg';
+import { validateEmail } from '../../../lib/validation';
+import { forgotPassword } from '../../../controllers/authController';
 
 function ForgotPassword() {
     const [email, setEmail] = useState<string>('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        const validationData = validateEmail(email);
+        if (validationData) {
+            toast.error(validationData);
+            return;
+        } else {
+            try {
+                const res: any = await forgotPassword(email);
+                
+                if (res?.link) {
+                    console.log("Password reset link:", res.link);
+                    window.open(res.link, '_blank');
+                }
+
+                toast.success("If this email exists, a reset link has been sent.");
+            } catch (err: any) {
+                toast.error(err.message || "Something went wrong.");
+            }
+        }
     }
 
     return (
@@ -62,7 +84,7 @@ function ForgotPassword() {
                                             type="email"
                                             className="border-0 border-b border-ib text-black rounded-none px-0 h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-ib"
                                         />
-                                        
+
                                     </div>
                                 </div>
                                 <Button type='submit' className="h-auto items-center cursor-pointer text-white px-6 py-2 relative w-full z-3 opacity-0 bg-custom border-custom rounded-xl hover:bg-white border-2 hover:border-ib-1 hover:text-ib-1  transition-colors animate-fade-in [animation-delay:300ms]">

@@ -1,18 +1,20 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
 import { CustomButton } from "../../../elements/buttons";
 
+import Image3 from '../../../assets/image/milestones/onet.png'
+
 function IntroMap() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/2" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/2", prevMilestoneId: "milestone3/1" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -46,7 +48,7 @@ function IntroMap() {
                     Next: O*NET Assessment</h5>
             </div>
             <div className="flex justify-center">
-                <img src="https://i.postimg.cc/RZ3pN2kw/onet.png" alt="" className='w-1/2 rounded-xl' />
+                <img src={Image3} alt="" className='w-1/2 rounded-xl' />
             </div>
             <div className="flex justify-between w-full gap-2 text-center">
                 <CustomButton onClickFunc={previous} title='previous' className='rounded-none justify-end' type='move'></CustomButton>

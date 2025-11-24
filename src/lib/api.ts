@@ -1,8 +1,6 @@
-// api.ts
 import { auth } from "../firebaseConfig";
 import { API_URL } from "../config/config";
 
-// Simple helper that does NOT depend on React hooks/context
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
     const token = await auth.currentUser?.getIdToken();
     const res = await fetch(`${API_URL}${path}`, {

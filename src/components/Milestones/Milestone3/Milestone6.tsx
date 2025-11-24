@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -12,11 +12,11 @@ import Image64 from "../../../assets/image/png/64.png";
 
 function CareerResearchLog() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/7" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/7", prevMilestoneId: "milestone3/6" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

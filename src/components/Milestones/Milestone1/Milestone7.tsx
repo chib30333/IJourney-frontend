@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -10,22 +10,38 @@ import { Input } from '../../../elements/input';
 import { Textarea } from '../../../elements/textarea';
 
 import ImageMountain from "../../../assets/image/png/10.png";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function StatementBuilder() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [value1, setValue1] = useState<string>("");
     const [value2, setValue2] = useState<string>("");
     const [value3, setValue3] = useState<string>("");
     const [value4, setValue4] = useState<string>("");
     const [value5, setValue5] = useState<string>("");
 
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const result = await getMilestone('milestone1_7');
+                if (result) {
+                    setValue1(result.responses.value1 as string);
+                    setValue2(result.responses.value2 as string);
+                    setValue3(result.responses.value3 as string);
+                    setValue4(result.responses.value4 as string);
+                    setValue5(result.responses.value5 as string);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
     const next = async () => {
         if (user) {
             try {
                 await submitMilestone('milestone1_7', { userId: user?.uid, responses: { value1, value2, value3, value4, value5 } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/1" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/1", prevMilestoneId: "milestone1/7" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error); 

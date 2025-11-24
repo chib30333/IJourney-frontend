@@ -10,6 +10,7 @@ import {
 } from '../../components';
 
 function Landing() {
+    
     return (
         <div className="w-full scroll-smooth">
             <HeroSection />

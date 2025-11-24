@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useAuth } from '../../../hooks';
-import { unlockNext, submitMilestone } from '../../../controllers/courseController';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../../context/AuthContext';
+import { unlockNext, submitMilestone, getMilestone } from '../../../controllers/courseController';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { CheckSquare, Square, ExternalLink } from 'lucide-react';
 import { CustomButton } from '../../../elements';
 
 function ResourceInventory() {
-    const user = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
     const [selectedResources, setSelectedResources] = useState(new Set());
     const [customResource1, setCustomResource1] = useState('');
@@ -184,6 +184,18 @@ function ResourceInventory() {
         }
     ];
 
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone4_4');
+                if (response) {
+                    setSelectedResources(new Set(response.responses.resources as Array<string>));
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
     const toggleResource = (id: number) => {
         const newSelected = new Set(selectedResources);
         if (newSelected.has(id)) {
@@ -202,7 +214,7 @@ function ResourceInventory() {
         if (user) {
             try {
                 await submitMilestone('milestone4_4', { userId: user?.uid, responses: { resources: finalResources } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/5" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/5", prevMilestoneId: "milestone4/4" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -215,7 +227,7 @@ function ResourceInventory() {
     }
 
     const previous = () => {
-
+        navigate('/milestones/milestone4/3');
     }
 
     return (
@@ -223,7 +235,7 @@ function ResourceInventory() {
             <div className="flex flex-col gap-4">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-2">M4.4: Resource Inventory</h1>
+                    <h3 className="text-3xl font-bold text-gray-800 mb-2">M4.4: Resource Inventory</h3>
                     <p className="text-gray-600 max-w-2xl mx-auto">
                         Systematically identify and take stock of the non-human resources and services available to you that can aid your journey toward purpose and career goals.
                     </p>
@@ -236,7 +248,7 @@ function ResourceInventory() {
                             <CheckSquare className="w-6 h-6 text-blue-600" />
                         </div>
                         <div>
-                            <h2 className="text-xl font-semibold text-gray-800 mb-2">How to Complete This Inventory</h2>
+                            <h4 className="text-xl font-semibold text-gray-800 mb-2">How to Complete This Inventory</h4>
                             <ul className="text-gray-600 space-y-2">
                                 <li>✓ Check all resources you currently have access to</li>
                                 <li>✓ Add any additional resources in the custom fields below</li>
@@ -252,7 +264,7 @@ function ResourceInventory() {
                     {resourceCategories.map((category) => (
                         <div key={category.id} className="bg-white rounded-xl shadow-2xl overflow-hidden">
                             <div className={`px-6 py-4 ${category.color} text-white`}>
-                                <p className="font-bold text-[20px] md:text-[32px]">{category.title}</p>
+                                <p className="font-bold text-[20px] md:text-[24px]">{category.title}</p>
                             </div>
                             <div className="p-6">
                                 <div className="grid gap-4">
@@ -299,7 +311,7 @@ function ResourceInventory() {
 
                 {/* Custom Resources */}
                 <div className="bg-white rounded-xl shadow-2xl p-6 mt-8">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4">Add Your Own Resources</h2>
+                    <h4 className="text-2xl font-bold text-gray-800 mb-4">Add Your Own Resources</h4>
                     <p className="text-gray-600 mb-6">
                         Don't see a resource you use? Add your own custom resources below.
                     </p>

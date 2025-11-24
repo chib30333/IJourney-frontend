@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -9,7 +9,7 @@ import { Target, Users, Calendar, Lightbulb } from 'lucide-react';
 
 function TemplateReflection() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const smartGoals = [
         { id: 1, goal: '', deadline: '', accountabilityPartner: '' },
         { id: 2, goal: '', deadline: '', accountabilityPartner: '' },
@@ -18,7 +18,7 @@ function TemplateReflection() {
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone7/4" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone7/4", prevMilestoneId: "milestone7/3" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

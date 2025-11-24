@@ -8,7 +8,6 @@ const containerStyle: React.CSSProperties = {
     height: "500px",
 };
 
-// Default address: 3104 Grandview Drive, Suite B, Simpsonville, SC
 const defaultCenter: LatLngLiteral = {
     lat: 34.72660,
     lng: -82.26081,
@@ -22,7 +21,6 @@ const GoogleMapView: React.FC = () => {
     const [center, setCenter] = useState(defaultCenter);
     const [zoom, setZoom] = useState(15);
 
-    // Example list of places to click & zoom
     const places = useMemo(
         () => [
             {

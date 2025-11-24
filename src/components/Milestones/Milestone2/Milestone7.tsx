@@ -2,7 +2,7 @@
 
 import { CustomButton } from "../../../elements/buttons";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -15,11 +15,11 @@ import IconArrow from "../../../assets/image/milestones/arrow.svg";
 
 function SelfEsteem() {
     const navigate = useNavigate()
-    const user = useAuth();
+    const { user } = useAuth();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/8" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/8", prevMilestoneId: "milestone2/7" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

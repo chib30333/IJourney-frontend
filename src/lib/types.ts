@@ -13,6 +13,14 @@ export interface AuthContextType {
     loading: boolean;
 }
 
+export interface ProgressContextValue {
+    currentMilestone: number | null;
+    currentMilestoneChild: number | null;
+    progress: any;
+    loadingProgress: boolean;
+    refreshProgress: () => Promise<void>;
+};
+
 export interface UserProfile {
   uid: string;
   name: string;

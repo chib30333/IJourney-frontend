@@ -55,9 +55,7 @@ export default function MilestoneStepper({
 }: Props) {
     return (
         <div className="w-full flex justify-center">
-            {/* Track */}
             <div className="relative flex flex-col sm:flex-row max-w-6xl sm:items-center justify-between gap-4 md:gap-4 px-8 sm:px-2 py-6 sm:gap-2">
-                {/* Dotted connector line behind buttons */}
                 <div className="pointer-events-none absolute inset-y-4 sm:top-1/2 -z-10 w-0.5 sm:w-full sm:h-0.5 border-r-8 sm:border-t-4 md:border-t-8 border-dashed border-gray-300 block" />
 
                 {Array.from({ length: 7 }).map((_, i) => {
@@ -65,7 +63,6 @@ export default function MilestoneStepper({
                     const isCurrent = id === current
                     const isCompleted = completedIds.includes(id)
 
-                    // Step 1 uses image button if provided
                     if (id === 1 && imageSrc) {
                         return (
                             <ImageMilestoneButton
@@ -98,9 +95,6 @@ export default function MilestoneStepper({
     )
 }
 
-// ————————————————————————————————————————
-// Image button for step 1
-// ————————————————————————————————————————
 function ImageMilestoneButton({
     id,
     title,
@@ -145,9 +139,6 @@ function ImageMilestoneButton({
     )
 }
 
-// ————————————————————————————————————————
-// Pure Tailwind diamond buttons for steps 2–7
-// ————————————————————————————————————————
 function DiamondMilestoneButton({
     id,
     title,
@@ -182,7 +173,6 @@ function DiamondMilestoneButton({
                 className="grid place-items-center cursor-pointer"
             >
                 <div className="relative h-12 w-12 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-16 lg:w-16">
-                    {/* Rotated square (diamond) */}
                     <div
                         className={classNames(
                             "absolute inset-0 origin-center rotate-25 skew-x-[-20deg] rounded-sm shadow-sm ring-1 ring-black/10",
@@ -191,7 +181,6 @@ function DiamondMilestoneButton({
                             isCompleted && "opacity-90"
                         )}
                     />
-                    {/* Number un-rotated */}
                     <div className="absolute inset-0 grid place-items-center">
                         <span className={classNames("text-md md:text-2xl font-bold", textColorClass)}>
                             {id}
@@ -203,9 +192,6 @@ function DiamondMilestoneButton({
     )
 }
 
-// ————————————————————————————————————————
-// Shared label + a11y wrapper
-// ————————————————————————————————————————
 function MilestoneButtonBase({
     id,
     label,
@@ -239,9 +225,6 @@ function MilestoneButtonBase({
     )
 }
 
-// ————————————————————————————————————————
-// Demo (remove if wiring into your app)
-// ————————————————————————————————————————
 export function Demo({ imageSrc }: { imageSrc?: string }) {
     const [current, setCurrent] = React.useState(1)
     const completed = Array.from({ length: current }, (_, i) => i + 1)

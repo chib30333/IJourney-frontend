@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -10,12 +10,12 @@ import ImageInnerCompass from "../../../assets/image/milestones/inner-compass.pn
 
 function InnerCompass() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
 
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/2" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/2", prevMilestoneId: "milestone1/1" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -25,6 +25,10 @@ function InnerCompass() {
         } else {
             toast.error("You need to log in to unlock the next milestone.");
         }
+    }
+
+    const previous = async () => {
+        navigate('/milestones/milestone0/2');
     }
 
     return (
@@ -39,7 +43,8 @@ function InnerCompass() {
             <div className="flex flex-col justify-center items-center">
                 <img src={ImageInnerCompass} alt="InnerCompass" className="rounded-xl border-8 border-white" />
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-between">
+                <CustomButton onClickFunc={previous} title='previous' className='rounded-none justify-end' type='move'></CustomButton>
                 <CustomButton onClickFunc={next} title='next' className='rounded-none justify-end' type='move'></CustomButton>
             </div>
         </div>

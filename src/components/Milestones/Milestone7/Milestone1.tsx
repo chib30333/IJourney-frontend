@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -9,11 +9,11 @@ import { Clock } from 'lucide-react';
 
 function YieldGrowth() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone7/2" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone7/2", prevMilestoneId: "milestone7/1" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

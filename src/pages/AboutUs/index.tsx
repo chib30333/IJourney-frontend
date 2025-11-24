@@ -1,4 +1,4 @@
-import GoogleMapView from "../../components/GoogleMapView";
+import GoogleMapView from '../../components/GoogleMapView';
 import ImageAboutUs from '../../assets/image/aboutus.png';
 
 function AboutUs() {

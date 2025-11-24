@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -9,11 +9,11 @@ import { Clock, Target, Users, Star, Heart,GraduationCap, Flag } from 'lucide-re
 
 function EnvisioningFuture() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone6/2" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone6/2", prevMilestoneId: "milestone6/1" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -26,7 +26,7 @@ function EnvisioningFuture() {
     }
 
     const previous = () => {
-        navigate('/milestones/milestone5/4');
+        navigate('/milestones/milestone5/5');
     };
 
     return (

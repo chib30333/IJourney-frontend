@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { introduce } from '../../../controllers/courseController';
-import { useAuth } from '../../../hooks';
+import { submitMilestone, getMilestone } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
 import toast from 'react-hot-toast';
 import { unlockNext } from '../../../controllers/courseController';
 
@@ -16,15 +16,28 @@ import {
 import UserAvatar from "../../../assets/image/avatar/avatar5.jfif";
 
 function StartingStatement() {
-    const user = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
     const [comment, setComment] = useState<string>("");
     const [buttonDisabledStatus, setbuttonDisabledStatus] = useState<boolean>(true);
 
+    useEffect(() => {
+        if (user) {
+            const getComment = async () => {
+                const result = await getMilestone('milestone0_2');
+                if (result) {
+                    setComment(result.responses.statement as string);
+                    setbuttonDisabledStatus(false);
+                }
+            }
+            getComment();
+        }
+    }, [user])
+
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/1" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/1", prevMilestoneId: "milestone0/2" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -37,7 +50,7 @@ function StartingStatement() {
     }
 
     const previous = () => {
-        navigate('/introduction/iam');
+        navigate('/milestones/milestone0/1');
     }
     const handlePostComment = async () => {
         if (!user) {
@@ -45,7 +58,7 @@ function StartingStatement() {
         } else {
             if (comment.trim()) {
                 try {
-                    const result = await introduce({ userId: user?.uid, responses: { statement: comment } });
+                    const result = await submitMilestone('milestone0_2', { userId: user?.uid, responses: { statement: comment } });
                     setbuttonDisabledStatus(false);
                     toast.success(result.message);
                 } catch (error: any) {

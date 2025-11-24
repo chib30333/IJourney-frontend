@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 import { Notebook } from 'lucide-react';
@@ -10,13 +10,57 @@ import { CustomButton } from "../../../elements/buttons";
 
 function CareerResearchLog() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const careers = ['', '', ''];
     const [researchData, setResearchData] = useState<Array<object>>([
         { career: '', outlook: '', education: '', skills: '', prosCons: '' },
         { career: '', outlook: '', education: '', skills: '', prosCons: '' },
         { career: '', outlook: '', education: '', skills: '', prosCons: '' }
     ]);
+
+    useEffect(() => {
+        if (user) {
+            const loadData = async () => {
+                const careersMilestone = await getMilestone("milestone3_3");
+                const researchMilestone = await getMilestone("milestone3_5");
+
+                // Convert object to array safely
+                const careerList: string[] = Object.values(
+                    careersMilestone?.responses?.careers || {}
+                );
+
+                if (researchMilestone?.responses?.researchData) {
+                    const savedResearch = researchMilestone.responses.researchData;
+
+                    // Research data might also be saved as an object → convert to array
+                    const researchList = Array.isArray(savedResearch)
+                        ? savedResearch
+                        : Object.values(savedResearch);
+
+                    const merged = researchList.map((item: any, index: number) => ({
+                        ...item,
+                        career: careerList[index] || ""
+                    }));
+
+                    setResearchData(merged);
+                    return;
+                }
+
+                // No saved research → initialize fresh with careers
+                const initial = careerList.map(career => ({
+                    career,
+                    outlook: "",
+                    education: "",
+                    skills: "",
+                    prosCons: ""
+                }));
+
+                setResearchData(initial);
+            };
+
+            loadData();
+        }
+    }, [user])
 
     const isFormComplete = () => {
         return researchData.every((row: any) =>
@@ -28,15 +72,6 @@ function CareerResearchLog() {
         );
     };
 
-    // Initialize research data when moving to M3.5
-    useEffect(() => {
-        const updated = careers.map((career, i) => ({
-            ...researchData[i],
-            career: career || `Career ${i + 1}`
-        }));
-        setResearchData(updated);
-    }, [careers]);
-
     const handleResearchChange = (index: number, field: string, value: string) => {
         const newData = [...researchData];
         setResearchData(newData.map((item, i) => i === index ? { ...item, [field]: value } : { ...item }));
@@ -45,7 +80,7 @@ function CareerResearchLog() {
         if (user) {
             try {
                 await submitMilestone('milestone3_5', { userId: user?.uid, responses: { careers, researchData } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/6" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/6", prevMilestoneId: "milestone3/5" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

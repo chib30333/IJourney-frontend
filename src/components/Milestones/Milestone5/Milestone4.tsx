@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -10,11 +10,11 @@ import { Users, Search, GraduationCap, CheckCircle } from 'lucide-react';
 
 function LoansSelecting() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone5/5" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone5/5", prevMilestoneId: "milestone5/4" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

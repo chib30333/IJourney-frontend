@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -9,12 +9,12 @@ import { CustomButton } from "../../../elements/buttons";
 import { Input } from '../../../elements/input';
 import { Label } from '../../../elements/label';
 import { Card, CardContent } from '../../../elements/card';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Users } from 'lucide-react';
 
 function MappingNet() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [supports, setSupports] = useState<Array<object>>([
         { name: "", role: "" },
         { name: "", role: "" },
@@ -32,10 +32,23 @@ function MappingNet() {
         );
     };
 
+    useEffect(() => {
+        if (user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone4_2');
+                if (response) {
+                    setSupports(response.responses.supports as Array<object>);
+                    setIsSaved(true);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/3" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/3", prevMilestoneId: "milestone4/2" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -79,41 +92,42 @@ function MappingNet() {
             </div>
             <div className="flex flex-col gap-6 bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)] p-6">
                 <h4 className='font-bold'>Your Support Persons</h4>
-                {supports.map((item: any, index: number) => <Card className="flex flex-col w-full items-start rounded-0 overflow-hidden border-2 border-gray-300 border-dashed">
-                    <CardContent key={index} className="flex flex-col items-start gap-2 pt-6 pb-5 px-6 relative w-full">
-                        <div className='font-bold flex gap-2'>
-                            <Users />
-                            Person {index + 1}
-                        </div>
-                        <div className="w-full justify-between flex flex-col items-start relative">
-                            <Label className="relative w-fit font-ib-2 -mt-px font-normal text-ib text-base tracking-[0] leading-10 whitespace-nowrap">
-                                Name
-                            </Label>
-                            <div className="relative w-full">
-                                <Input
-                                    value={item.name}
-                                    type="text"
-                                    onChange={(e) => setSupports(supports.map((support, i) => i === index ? { ...support, name: e.target.value } : { ...support }))}
-                                    className="border-0 border-b border-ib rounded-none px-0 h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0"
-                                />
+                {supports.map((item: any, index: number) =>
+                    <Card key={index} className="flex flex-col w-full items-start rounded-0 overflow-hidden border-2 border-gray-300 border-dashed">
+                        <CardContent className="flex flex-col items-start gap-2 pt-6 pb-5 px-6 relative w-full">
+                            <div className='font-bold flex gap-2'>
+                                <Users />
+                                Person {index + 1}
                             </div>
-                        </div>
-                        <div className="w-full justify-between flex flex-col items-start relative">
-                            <Label className="relative w-fit font-ib-2 -mt-px font-normal text-ib text-base tracking-[0] leading-10 whitespace-nowrap">
-                                Role/Category
-                            </Label>
-                            <div className="relative w-full">
-                                <select
-                                    value={item.role}
-                                    onChange={(e) => setSupports(supports.map((support, i) => i === index ? { ...support, role: e.target.value } : { ...support }))}
-                                    className="border-0 border-b w-full p-2 border-ib rounded-none h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0"
-                                >
-                                    {roles.map((item, roleIndex) => <option key={roleIndex} value={item}>{item}</option>)}
-                                </select>
+                            <div className="w-full justify-between flex flex-col items-start relative">
+                                <Label className="relative w-fit font-ib-2 -mt-px font-normal text-ib text-base tracking-[0] leading-10 whitespace-nowrap">
+                                    Name
+                                </Label>
+                                <div className="relative w-full">
+                                    <Input
+                                        value={item.name}
+                                        type="text"
+                                        onChange={(e) => setSupports(supports.map((support, i) => i === index ? { ...support, name: e.target.value } : { ...support }))}
+                                        className="border-0 border-b border-ib rounded-none px-0 h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    </CardContent>
-                </Card>)}
+                            <div className="w-full justify-between flex flex-col items-start relative">
+                                <Label className="relative w-fit font-ib-2 -mt-px font-normal text-ib text-base tracking-[0] leading-10 whitespace-nowrap">
+                                    Role/Category
+                                </Label>
+                                <div className="relative w-full">
+                                    <select
+                                        value={item.role}
+                                        onChange={(e) => setSupports(supports.map((support, i) => i === index ? { ...support, role: e.target.value } : { ...support }))}
+                                        className="border-0 border-b w-full p-2 border-ib rounded-none h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    >
+                                        {roles.map((item, roleIndex) => <option key={roleIndex} value={item}>{item}</option>)}
+                                    </select>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>)}
                 <div className="flex justify-center">
                     <CustomButton onClickFunc={save} title='save' className='rounded-none justify-end' type='red' disabled={!isFormComplete()}></CustomButton>
                 </div>

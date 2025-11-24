@@ -46,50 +46,50 @@ export const heroSectionData = {
             image: IconLamp,
             number: "01",
             description: `Increasing Self Awareness`,
-            bgColor: "#ffccab",
-            hoverBgColor: "#f1af82",
-            ImageColor: "#ffede2"
+            bgColor: "bg-[#ffccab]",
+            hoverBgColor: "hover:bg-[#f1af82]",
+            ImageColor: "bg-[#ffede2]"
         },
         {
             image: IconBrain,
             number: "02",
             description: `Effective Problem Solving`,
-            bgColor: "#d6a7e4",
-            hoverBgColor: "#d27bec",
-            ImageColor: "#f8e2ff"
+            bgColor: "bg-[#d6a7e4]",
+            hoverBgColor: "hover:bg-[#d27bec]",
+            ImageColor: "bg-[#f8e2ff]"
         },
         {
             image: IconControl,
             number: "03",
             description: `Managing Emotions`,
-            bgColor: "#a8d2d4",
-            hoverBgColor: "#6adfe6",
-            ImageColor: "#daf2f4"
+            bgColor: "bg-[#a8d2d4]",
+            hoverBgColor: "hover:bg-[#6adfe6]",
+            ImageColor: "bg-[#daf2f4]"
         },
         {
             image: IconFriend,
             number: "04",
             description: `Smart Decision Making`,
-            bgColor: "#efe6ab",
-            hoverBgColor: "#e6d779",
-            ImageColor: "#fdf7d0"
+            bgColor: "bg-[#efe6ab]",
+            hoverBgColor: "hover:bg-[#e6d779]",
+            ImageColor: "bg-[#fdf7d0]"
         },
         {
             image: IconMark,
             number: "05",
             description: `Using Empathy In Relationships`,
-            bgColor: "#f3b2db",
-            hoverBgColor: "#eb7cc2",
-            ImageColor: "#ffe3f5"
+            bgColor: "bg-[#f3b2db]",
+            hoverBgColor: "hover:bg-[#eb7cc2]",
+            ImageColor: "bg-[#ffe3f5]"
         },
         {
             image: IconPerson,
             number: "06",
             description: `Taking Responsibility for Actions`,
-            bgColor: "#ffb7b0",
-            hoverBgColor: "#f7887e",
-            ImageColor: "#ffdeda"
-        }
+            bgColor: "bg-[#ffb7b0]",
+            hoverBgColor: "hover:bg-[#f7887e]",
+            ImageColor: "bg-[#ffdeda]"
+        },
     ]
 }
 

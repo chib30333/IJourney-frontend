@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { TrashIcon } from "lucide-react";
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 import { submitMilestone } from '../../../controllers/courseController';
 
@@ -29,17 +29,31 @@ const emotions = [
 
 function InteractiveFeelingsWheel() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [buttonDisabledStatus, setbuttonDisabledStatus] = useState<boolean>(true);
     const [emotion, setEmotion] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [savedEntry, setSavedEntry] = useState<Array<object>>([])
     const [nextButtonDisabledState, setnextButtonDisabledState] = useState<boolean>(true);
 
+    useEffect(() => {
+        if (user) {
+            const getResponse = async () => {
+                const result = await getMilestone('milestone1_4');
+                if (result) {
+                    setSavedEntry(result.responses.entries as Array<object>);
+                    setbuttonDisabledStatus(false);
+                    setnextButtonDisabledState(false);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/5" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/5", prevMilestoneId: "milestone1/4" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -62,7 +76,7 @@ function InteractiveFeelingsWheel() {
     }
 
     const handleDeleteSavedEntry = (index: number) => {
-        setSavedEntry(savedEntry.filter((item: any, i: number) => i !== index && {...item}));
+        setSavedEntry(savedEntry.filter((item: any, i: number) => i !== index && { ...item }));
     }
 
     useEffect(() => {
@@ -74,7 +88,7 @@ function InteractiveFeelingsWheel() {
     }, [savedEntry.length])
 
     const save = async () => {
-        if(user) {
+        if (user) {
             try {
                 const result = await submitMilestone('milestone1_4', { userId: user?.uid, responses: { entries: savedEntry } });
                 toast.success(result.message);

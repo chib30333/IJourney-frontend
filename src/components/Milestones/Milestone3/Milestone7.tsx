@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CheckCircle, GraduationCap, TrendingUp, DollarSign, ChevronRight } from 'lucide-react';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { unlockNext } from '../../../controllers/courseController';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -13,7 +13,6 @@ import Image68 from '../../../assets/image/png/68.png';
 
 // Mock data simulating what would come from Firestore after M3.3, M3.4, M3.5
 const MOCK_USER_DATA = {
-    requiredAnnualSalary: 78500,
     careerPaths: [
         {
             id: 1,
@@ -37,14 +36,33 @@ const MOCK_USER_DATA = {
 };
 
 export default function App() {
-    const [selectedCareerId, setSelectedCareerId] = useState(null);
+    const [selectedCareerId, setSelectedCareerId] = useState<number>();
     const [isCommitted, setIsCommitted] = useState(false);
+    const [requiredSalary, setRequiredSalary] = useState(0);
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
+
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const responsePrice = await getMilestone('milestone3_4');
+                const response = await getMilestone('milestone3_7');
+                if(response) {
+                    setRequiredSalary(responsePrice.responses.requiredSalary as number);
+                    setSelectedCareerId(response.responses.selectedCareerId as number);
+                    setIsCommitted(true);
+                    console.log(response);
+                    console.log(responsePrice);
+                    
+                }
+            }
+            getResponse();
+        }
+    }, [user])
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/1" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/1", prevMilestoneId: "milestone3/7" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -95,7 +113,7 @@ export default function App() {
                         <h4 className="text-xl font-semibold text-gray-800">
                             Required Annual Salary:{" "}
                             <span className="text-green-600 font-bold">
-                                ${MOCK_USER_DATA.requiredAnnualSalary.toLocaleString()}
+                                ${requiredSalary}
                             </span>
                         </h4>
                     </div>

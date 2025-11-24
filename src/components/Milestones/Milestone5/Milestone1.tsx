@@ -1,24 +1,36 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext, submitMilestone } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { unlockNext, submitMilestone, getMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 import { BookOpen, Clock } from "lucide-react";
 import { CustomButton } from "../../../elements/buttons";
 import { Textarea } from '../../../elements/textarea';
 
 import ImageOpenBook from "../../../assets/image/milestones/open-book.png";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function NavigatingEducation() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [goal, setGoal] = useState<string>("");
+
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone5_1');
+                if(response) {
+                    setGoal(response.responses.goal as string);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
     const next = async () => {
         if (user) {
             try {
                 await submitMilestone('milestone5_1', { userId: user?.uid, responses: { goal } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone5/2" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone5/2", prevMilestoneId: "milestone5/1" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

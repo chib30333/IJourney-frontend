@@ -1,5 +1,5 @@
-import React from "react";
-import { MilestoneLayout } from "../layouts";
+import React from 'react';
+import { MilestoneLayout } from '../layouts';
 
 const milestoneModules = import.meta.glob("../components/Milestones/Milestone*/Milestone*.tsx");
 

@@ -1,14 +1,48 @@
 
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
+import toast from 'react-hot-toast';
+import { unlockNext } from '../../../controllers/courseController';
 
 import { CustomButton } from "../../../elements/buttons";
 import { Star, Heart, Target, Users, Lightbulb } from 'lucide-react';
 
 function RoadAhead() {
     const navigate = useNavigate();
+    const { user, logout } = useAuth();
+
     const previous = () => {
         navigate('/milestones/milestone7/4');
     };
+
+    const handleLogout = () => {
+        if (user) {
+            logout();
+            navigate('/');
+            toast.success("You have successfully logged out.");
+        } else {
+            toast.error("You need to log in to unlock the next milestone.");
+        }
+    }
+
+    const handleStartAI = () => {
+
+    }
+
+    const complete = async () => {
+        if(user) {
+            try {
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "completed", prevMilestoneId: "milestone7/5" });
+                toast.success(result.message);
+                navigate('/');
+            } catch (error: any) {
+                console.log(error);
+                toast.error(error.message);
+            }
+        } else {
+            toast.error("You need to log in to finish all milestone.");
+        }
+    }
 
     return (
         <div className="flex flex-col gap-6">
@@ -42,9 +76,7 @@ function RoadAhead() {
                             <div className="flex items-start gap-2"><Lightbulb className="w-5 h-5 text-yellow-600 mt-1" /> Help you navigate new challenges and opportunities</div>
                             <div className="flex items-start gap-2"><Lightbulb className="w-5 h-5 text-yellow-600 mt-1" /> Provide encouragement and celebrate your successes</div>
                         </div>
-                        <button className="mt-4 bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition-colors">
-                            Start AI Companion
-                        </button>
+                        <CustomButton title='Start AI Companion' onClickFunc={handleStartAI} className='rounded-full mt-4 justify-end' type='red'></CustomButton>
                     </div>
 
                     <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
@@ -57,29 +89,14 @@ function RoadAhead() {
                         </div>
                         <p className="mb-4">Thank you for embarking on this transformative journey with us. We believe in your potential and look forward to seeing the incredible impact you'll make in the world.</p>
                         <div className="flex justify-center space-x-4">
-                            <button
-                                onClick={() => {
-                                    alert("Returning to dashboard...");
-                                    window.location.replace("/");
-                                }}
-                                className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors"
-                            >
-                                Return to Dashboard
-                            </button>
-                            <button
-                                onClick={() => {
-                                    alert("You've been logged out. Thank you for completing your journey!");
-                                }}
-                                className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
-                            >
-                                Log Out
-                            </button>
+                            <CustomButton title='Log Out' onClickFunc={handleLogout} className='rounded-full justify-end' type='red'></CustomButton>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="flex justify-between w-full gap-2 text-center">
                 <CustomButton onClickFunc={previous} title='previous' className='rounded-none justify-end' type='move'></CustomButton>
+                <CustomButton onClickFunc={complete} title='complete' className='rounded-none justify-end' type='move'></CustomButton>
             </div>
         </div>
     )

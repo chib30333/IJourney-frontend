@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -10,13 +10,24 @@ import { Input } from '../../../elements/input';
 
 function CareerDiscovery() {
     const navigate = useNavigate();
-    const user = useAuth();
-    const [careers, setCareers] = useState({
+    const { user } = useAuth();
+    const [careers, setCareers] = useState<Record<string, string>>({
         c1: '',
         c2: '',
         c3: ''
     });
 
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone3_3');
+                if(response) {
+                    setCareers(response.responses.careers as Record<string, string>);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
 
     const allFilled = Object.values(careers).every(value => value.trim() !== '');
 
@@ -28,7 +39,7 @@ function CareerDiscovery() {
         if (user) {
             try {
                 await submitMilestone('milestone3_3', { userId: user?.uid, responses: { careers } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/4" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/4", prevMilestoneId: "milestone3/3" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

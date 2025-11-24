@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -12,7 +12,7 @@ import ImageOasis from "../../../assets/image/milestones/oasis.png";
 
 function Oasis() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const SQs = [
         {
             title: "Yes, always",
@@ -65,6 +65,18 @@ function Oasis() {
         }
     }, [accessments])
 
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const result = await getMilestone('milestone2_1');
+                if (result) {
+                    setAccessments(result.responses.accessments as Array<object>);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
     const setSelected = (index: number, index1: number) => {
         setAccessments(accessments.map((item: any, i: number) => i === index ? { ...item, sqs: item.sqs.map((itemJ: any, j: number) => j === index1 ? { ...itemJ, selected: true } : { ...itemJ, selected: false }) } : { ...item }));
     }
@@ -73,7 +85,7 @@ function Oasis() {
         if (user) {
             try {
                 await submitMilestone('milestone2_1', { userId: user?.uid, responses: { accessments } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/2" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/2", prevMilestoneId: "milestone2/1" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

@@ -1,9 +1,9 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { CustomButton } from "../../../elements/buttons";
@@ -32,13 +32,27 @@ const guidePosts: any = [
 
 function JordanStory() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [feeling, setFeeling] = useState<string>("");
     const [nextButtonDisabledState, setnextButtonDisabledState] = useState<boolean>(true);
+
+    useEffect(() => {
+        if (user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone2_4');
+
+                if (response) {
+                    setFeeling(response.responses.feeling as string);
+                    setnextButtonDisabledState(false);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/5" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/5", prevMilestoneId: "milestone2/4" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -90,7 +104,7 @@ function JordanStory() {
                     One fateful day, the results of his science exam were handed back to the class. As Jordan stared at the red ink glaring at him from
                     the paper-an unforgiving "F"-his heart sank
                     Without thinking, he ripped the paper in half. his anger boiling over. 'This is why I don't try in this class I hate science,
-                    and I'm never going to pass!" he yelled, his voice echoing through the room. The humiliation mixed with rage fueled his rebellion. 
+                    and I'm never going to pass!" he yelled, his voice echoing through the room. The humiliation mixed with rage fueled his rebellion.
                     In the weeks that followed, Jordan stopped attending science class altogether. On the rare occasions he did show up, he would sit in the back. hoodie
                     pulled over his head, trying to disappear into the fabric. When the teacher droned on about chemical reactions, he buried his head on the desk
                     opting for a nap over the struggle.</h5>

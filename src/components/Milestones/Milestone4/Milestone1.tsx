@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Users, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
 import { CustomButton } from "../../../elements/buttons";
+import ImageResource from '../../../assets/image/milestones/resource.png'
 
 function IntroGuides() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [showStory, setShowStory] = useState(false);
 
     const toggleStory = () => {
@@ -19,7 +20,7 @@ function IntroGuides() {
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/2" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/2", prevMilestoneId: "milestone4/1" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -97,7 +98,7 @@ function IntroGuides() {
                     )}
                 </div>
                 <div className="flex justify-center">
-                    <img src="https://postimg.cc/JDpRfFWS" alt="resource" className='w-1/2' />
+                    <img src={ImageResource} alt="resource" className='w-2/3' />
                 </div>
                 <div className="text-center">
                     <p className="text-gray-600 mb-6">

@@ -1,17 +1,25 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, submitMilestone, unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
 import { CustomButton } from "../../../elements/buttons";
 import { CheckCircle } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+type JourneyerStatement = {
+    iAm: string;
+    iBelieve: string;
+    iWill: string;
+    iAmConfident: string;
+    iAmCapable: string;
+}
 
 function DraftStatement() {
     const navigate = useNavigate();
-    const user = useAuth();
-    const [journeyerStatement, setJourneyerStatement] = useState({
+    const { user } = useAuth();
+    const [journeyerStatement, setJourneyerStatement] = useState<JourneyerStatement>({
         iAm: '',
         iBelieve: '',
         iWill: '',
@@ -19,10 +27,22 @@ function DraftStatement() {
         iAmCapable: ''
     });
 
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone6_3');
+                if (response) {
+                    setJourneyerStatement(response.responses.journeyerStatement as JourneyerStatement);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone6/4" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone6/4", prevMilestoneId: "milestone6/3" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -36,6 +56,19 @@ function DraftStatement() {
 
     const previous = () => {
         navigate('/milestones/milestone6/2');
+    };
+
+    const handleSave = async () => {
+        // Save the journeyer's statement to the database
+        if (user) {
+            try {
+                const result = await submitMilestone('milestone6_3', { userId: user?.uid, responses: { journeyerStatement } });
+                toast.success(result.message);
+            } catch (error: any) {
+                console.log(error);
+                toast.error(error.message);
+            }
+        }
     };
 
     return (
@@ -107,14 +140,7 @@ function DraftStatement() {
                         </div>
 
                         <div className="mt-6 flex justify-end">
-                            <button
-                                onClick={() => {
-                                    alert("Your draft has been saved!");
-                                }}
-                                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-                            >
-                                Save Draft
-                            </button>
+                            <CustomButton title="Save" className='rounded-full justify-end' type='red' onClickFunc={handleSave} disabled={journeyerStatement.iAm === '' || journeyerStatement.iBelieve === '' || journeyerStatement.iWill === '' || journeyerStatement.iAmConfident === '' || journeyerStatement.iAmCapable === ''} />
                         </div>
                     </div>
 

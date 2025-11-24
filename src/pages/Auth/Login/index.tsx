@@ -45,9 +45,6 @@ function Login() {
         try {
             await loginWithEmailPassword(email, password);
             setInputValues({ email: "", password: "" });
-
-            toast.success("Login successful!");
-
             navigate('/')
         } catch (error: any) {
             toast.error(error.message);

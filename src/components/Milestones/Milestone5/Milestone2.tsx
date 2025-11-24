@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -9,11 +9,11 @@ import { CustomButton } from "../../../elements/buttons";
 
 function EducationalJourneys() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone5/3" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone5/3", prevMilestoneId: "milestone5/2" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -93,7 +93,7 @@ function EducationalJourneys() {
                     <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
                         <h4 className="text-xl font-bold text-orange-800 mb-3">Spartanburg Community College (For Middle Schoolers)</h4>
                         <p className="mb-3">Introduces the concept of "Early College" for middle schoolers. Encourages exploration of career paths early.</p>
-                        <a href="https://early-college.gvltec.edu/" target="_blank" rel="noopener noreferrer" className="inline-block text-orange-600 hover:text-orange-800 underline">
+                        <a href="https://early-college.gvltec.edu/" target="_blank" rel="noopener noreferrer" className="inline-block font-bold text-orange-600 hover:text-orange-800 underline">
                             Learn more about SCC's Early College Program
                         </a>
                     </div>

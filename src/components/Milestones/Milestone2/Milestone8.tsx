@@ -1,9 +1,9 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomButton } from "../../../elements/buttons";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -42,8 +42,53 @@ const tableTraits: any = [
 
 function Confidence() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [checkedItems, setCheckedItems] = useState<{ [groupIndex: number]: number[] }>({});
+
+    useEffect(() => {
+        if (user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone2_8');
+
+                if (response) {
+                    console.log("response:", response);
+
+                    const selected = response.responses.selected as {
+                        healthy?: string[];
+                        low?: string[];
+                        overlyHigh?: string[];
+                    };
+
+                    // Map group names from API → index in tableTraits
+                    const groupNameToIndex: Record<string, number> = {
+                        overlyHigh: 0,
+                        healthy: 1,
+                        low: 2,
+                    };
+
+                    const preChecked: { [groupIndex: number]: number[] } = {};
+
+                    Object.entries(selected).forEach(([groupName, traits]) => {
+                        const groupIndex = groupNameToIndex[groupName];
+                        if (groupIndex === undefined || !Array.isArray(traits)) return;
+
+                        // For each saved trait string, find its index in the tableTraits array
+                        const indices = traits
+                            .map((trait) => tableTraits[groupIndex].indexOf(trait))
+                            .filter((i) => i !== -1); // ignore if text changed and doesn’t match
+
+                        preChecked[groupIndex] = indices;
+                    });
+
+                    setCheckedItems(preChecked);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
+    console.log(checkedItems);
+
 
     const handleCheckboxChange = (groupIndex: number, itemIndex: number) => {
         setCheckedItems(prev => {
@@ -67,11 +112,11 @@ function Confidence() {
     };
     const next = async () => {
         const selected = getSelectedTraits();
-        
+
         if (user) {
             try {
                 await submitMilestone('milestone2_8', { userId: user?.uid, responses: { selected } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/9" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/9", prevMilestoneId: "milestone2/8" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

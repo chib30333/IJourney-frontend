@@ -5,27 +5,27 @@ import Instagram from "../assets/image/social/Instagram.svg";
 
 export const headerData = {
     solutions: [
-        { name: 'Milestone 1', title: "M1. Journeyer's Statement", description: 'Get a better understanding of your traffic', href: '/milestones/milestone1/1', state: 'locked' },
-        { name: 'Milestone 2', title: "M2. Oasis Explorations", description: 'Speak directly to your customers', href: '/milestones/milestone2/1', state: 'locked' },
-        { name: 'Milestone 3', title: "M3. Unchartered Territory", description: "Your customers' data will be safe and secure", href: '/milestones/milestone3/1', state: 'locked' },
-        { name: 'Milestone 4', title: "M4. Resources Roadways", description: 'Connect with third-party tools', href: '/milestones/milestone4/1', state: 'locked' },
-        { name: 'Milestone 5', title: "M5. Navigating Education", description: 'Build strategic funnels that will convert', href: '/milestones/milestone5/1', state: 'locked' },
-        { name: 'Milestone 6', title: "M6. Envisioning the Future", description: 'Get a better understanding of your traffic', href: '/milestones/milestone6/1', state: 'locked' },
-        { name: 'Milestone 7', title: "M7. Yielding to Growth", description: 'Your customers data will be safe and secure', href: '/milestones/milestone7/1', state: 'locked' },
+        { name: 'Milestone 1', title: "M1. Journeyer's Statement", description: 'Get a better understanding of your traffic', href: '/milestones/milestone1/1' },
+        { name: 'Milestone 2', title: "M2. Oasis Explorations", description: 'Speak directly to your customers', href: '/milestones/milestone2/1' },
+        { name: 'Milestone 3', title: "M3. Unchartered Territory", description: "Your customers' data will be safe and secure", href: '/milestones/milestone3/1' },
+        { name: 'Milestone 4', title: "M4. Resources Roadways", description: 'Connect with third-party tools', href: '/milestones/milestone4/1' },
+        { name: 'Milestone 5', title: "M5. Navigating Education", description: 'Build strategic funnels that will convert', href: '/milestones/milestone5/1' },
+        { name: 'Milestone 6', title: "M6. Envisioning the Future", description: 'Get a better understanding of your traffic', href: '/milestones/milestone6/1' },
+        { name: 'Milestone 7', title: "M7. Yielding to Growth", description: 'Your customers data will be safe and secure', href: '/milestones/milestone7/1' },
     ],
 
     navItems: [
         { label: "Home", hasDropdown: false, active: true, href: "/" },
         { label: "Course Map", hasDropdown: true, active: false },
         { label: "My Progress", hasDropdown: false, active: false, href: "overRallProgress" },
-        { label: "About Us", hasDropdown: false, active: false, href: "/aboutUs" },
+        { label: "About Us", hasDropdown: false, active: false, href: "/aboutus" },
     ]
 };
 
 export const footerData = {
     quickLinks: [
         { label: "Home", href: "/" },
-        { label: "About Us", href: "/aboutUs" },
+        { label: "About Us", href: "/aboutus" },
         { label: "Milestones", href: "milestones" },
         { label: "Overall Progress", href: "overRallProgress" },
     ],
@@ -64,7 +64,7 @@ export const sidebarData = {
             { title: "M1.1: Your Inner Compass", url: "/milestones/milestone1/1" },
             { title: "M1.2: What’s the Difference", url: "/milestones/milestone1/2" },
             { title: "M1.3: Exploring Your Emotions", url: "/milestones/milestone1/3" },
-            { title: "M1.4:The Interactive Feelings Wheel", url: "/milestones/milestone1/4" },
+            { title: "M1.4: The Interactive Feelings Wheel", url: "/milestones/milestone1/4" },
             { title: "M1.5: Identifying Your True North", url: "/milestones/milestone1/5" },
             { title: "M1.6: The Guiding Questions", url: "/milestones/milestone1/6" },
             { title: "M1.7: Journeyer's Statement Builder", url: "/milestones/milestone1/7" }
@@ -77,7 +77,7 @@ export const sidebarData = {
             { title: "M2.5: EQ: Emotional Intelligence", url: "/milestones/milestone2/5" },
             { title: "M2.6: EQ Treasured Secrets", url: "/milestones/milestone2/6" },
             { title: "M2.7: What is Self-Esteem?", url: "/milestones/milestone2/7" },
-            { title: "M2.8: Healthy Confidence & Confidence Compass", url: "/milestones/milestone2/8" },
+            { title: "M2.8: Confidence", url: "/milestones/milestone2/8" },
             { title: "M2.9: Intro to Character", url: "/milestones/milestone2/9" },
             { title: "M2.10: The 24 Character Strengths", url: "/milestones/milestone2/10" },
             { title: "M2.11: Defining Your Strengths", url: "/milestones/milestone2/11" },

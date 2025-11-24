@@ -102,7 +102,7 @@ function Register() {
                                                     type={field.type === "password" ? (showPassword[index - 2] ? "text" : "password") : field.type}
                                                     placeholder={field.placeholder}
                                                     onChange={handleChange}
-                                                    className="border-0 border-b border-ib rounded-none px-0 h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-ib"
+                                                    className="border-0 border-b text-black border-ib rounded-none px-0 h-auto pb-1 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-ib"
                                                 />
                                                 {field.type === "password" && (
                                                     <>

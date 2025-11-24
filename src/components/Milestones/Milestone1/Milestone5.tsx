@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';;
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -30,30 +30,40 @@ const items = [
 
 function IdentifyTrueNorth() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [checkedItems, setCheckedItems] = useState<Array<any>>([]);
     const [nextButtonDisabledState, setnextButtonDisabledState] = useState<boolean>(true);
 
     const toggleCheckbox = async (id: number, value: string) => {
         if (checkedItems.filter(item => item.id === id).length > 0) {
-            // Remove it if already checked
             await setCheckedItems(checkedItems.filter(item => item.id !== id));
         } else {
-            // Add it if not checked
             await setCheckedItems([...checkedItems, { id, value }]);
         }
     };
 
     useEffect(() => {
-        if (checkedItems.length === 3) setnextButtonDisabledState(false);
+        if (checkedItems.length >= 3) setnextButtonDisabledState(false);
         else setnextButtonDisabledState(true);
     }, [checkedItems.length]);
+
+    useEffect(() => {
+        if (user) {
+            const getResponse = async () => {
+                const result = await getMilestone('milestone1_5');
+                if (result) {
+                    setCheckedItems(result.responses.trueNorth as Array<object>);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
 
     const next = async () => {
         if (user) {
             try {
                 await submitMilestone('milestone1_5', { userId: user?.uid, responses: { trueNorth: checkedItems } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/6" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/6", prevMilestoneId: "milestone1/5" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

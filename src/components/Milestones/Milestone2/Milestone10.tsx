@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 import { milestoneData } from '../../../datas/milestoneData';
@@ -10,15 +10,39 @@ import { CustomButton } from "../../../elements/buttons";
 import { images } from '../../../lib/utils';
 import { Card, CardContent } from '../../../elements/card';
 
+type CharacterStrength = {
+    title: string;
+    content: string[];
+};
+
 function IntroCharacter() {
     const navigate = useNavigate();
-    const user = useAuth();
-    const [selectedCharacterStrengths, setSelectedCharacterStrengths] = useState<Array<object>>([]);
+    const { user } = useAuth();
+    const [selectedCharacterStrengths, setSelectedCharacterStrengths] = useState<CharacterStrength[]>([]);
+
+
+    useEffect(() => {
+        if (!user) return;
+
+        const getResponse = async () => {
+            const response = await getMilestone('milestone2_10');
+            console.log(response);
+
+            if (response?.responses?.selectedCharacterStrengths) {
+                setSelectedCharacterStrengths(
+                    response.responses.selectedCharacterStrengths as CharacterStrength[]
+                );
+            }
+        };
+
+        getResponse();
+    }, [user]);
+
     const next = async () => {
         if (user) {
             try {
                 await submitMilestone('milestone2_10', { userId: user?.uid, responses: { selectedCharacterStrengths } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/11" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/11", prevMilestoneId: "milestone2/10" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -34,17 +58,24 @@ function IntroCharacter() {
         navigate('/milestones/milestone2/9');
     };
 
-    const selectCharacters = (data: any) => {
-        if (selectedCharacterStrengths.includes(data)) {
-            setSelectedCharacterStrengths(selectedCharacterStrengths.filter((item: any) => item !== data));
-        } else {
-            setSelectedCharacterStrengths([...selectedCharacterStrengths, data]);
-        }
-    }
+    const selectCharacters = (data: CharacterStrength) => {
+        setSelectedCharacterStrengths(prev => {
+            const alreadySelected = prev.some(item => item.title === data.title);
+
+            if (alreadySelected) {
+                // remove it
+                return prev.filter(item => item.title !== data.title);
+            } else {
+                // add it
+                return [...prev, data];
+            }
+        });
+    };
 
     useEffect(() => {
         console.log(selectedCharacterStrengths)
     }, [selectedCharacterStrengths]);
+
 
     return (
         <div className="flex flex-col gap-6">
@@ -56,8 +87,14 @@ function IntroCharacter() {
                 <div className="grid sm:grid-cols-3 md:grid-cols-4 gap-4">
                     {Object.entries(images).map(([path, src], index) => {
                         const name = path.split('/').pop()?.replace(/\.[^/.]+$/, '') || 'image';
+                        const strength = milestoneData.characterStrengths[index];
+
+                        const isSelected = selectedCharacterStrengths.some(
+                            item => item.title === strength.title
+                        );
+
                         return (
-                            <Card key={index} onClick={() => selectCharacters(milestoneData.characterStrengths[index])} className={`flex flex-col w-full items-start rounded-0 overflow-hidden border-2 border-gray-300 border-dashed cursor-pointer hover:border-gray-500 active:scale-90 ${selectedCharacterStrengths.includes(milestoneData.characterStrengths[index]) && 'border-gray-800'}`}>
+                            <Card key={index} onClick={() => selectCharacters(strength)} className={`flex flex-col w-full items-start rounded-0 overflow-hidden border-2 border-gray-300 border-dashed cursor-pointer hover:border-gray-500 active:scale-90 ${isSelected && 'border-gray-800'}`}>
                                 <CardContent className="flex flex-col items-start gap-2 pt-6 pb-5 px-6 relative w-full">
                                     <div className="flex items-center justify-center w-full">
                                         <img

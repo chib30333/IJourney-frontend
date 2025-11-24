@@ -305,6 +305,10 @@ body {
   border-top-color: #6193b5;
 }
 
+/* sidebar */
+
+
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

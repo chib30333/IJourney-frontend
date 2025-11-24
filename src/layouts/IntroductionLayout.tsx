@@ -7,7 +7,6 @@ import Chatbot from "../components/Chatbot";
 import LogoImage from "../assets/image/milestones/logo.png";
 
 function IntroductionLayout() {
-
     return (
         <div className="flex flex-col min-h-screen  bg-gray-50 ">
             <Header />

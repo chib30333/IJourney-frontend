@@ -51,7 +51,7 @@ export const logout = async () => {
 
 export const forgotPassword = async (email: string) => {
     try {
-        const data = await api(`/api/auth/forgot-password`, {
+        const data = await api<{ message: string, link: string, success: boolean }>(`/api/auth/forgot-password`, {
             method: "POST",
             body: JSON.stringify({ email }),
         });

@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -10,9 +10,9 @@ import { useState, useEffect } from 'react';
 
 const LifestyleCalculator = () => {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [nextButtonDisabledState, setnextButtonDisabledState] = useState<boolean>(true);
-    const [expenses, setExpenses] = useState({
+    const [expenses, setExpenses] = useState<Record<string, string>>({
         housing: '',
         transportation: '',
         food: '',
@@ -26,6 +26,19 @@ const LifestyleCalculator = () => {
     const [requiredSalary, setRequiredSalary] = useState(0);
     const [isComplete, setIsComplete] = useState(false);
     const [showResult, setShowResult] = useState(false);
+
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone3_4');
+                if (response) {
+                    setExpenses(response.responses.expenses as Record<string, string>);
+                    setnextButtonDisabledState(false);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
 
     // Calculate totals whenever expenses change
     useEffect(() => {
@@ -53,7 +66,7 @@ const LifestyleCalculator = () => {
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/5" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone3/5", prevMilestoneId: "milestone3/4" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

@@ -9,12 +9,20 @@ export type Milestone = {
     order?: number;
 };
 
+export type MilestoneResponse = {
+    message: string,
+    responses: Record<string, unknown>;
+};
+
 // GET /api/courses  (be sure your backend mounts getAllMilestones on this route)
 export const listMilestones = () =>
     api<{ milestones: Milestone[] }>("/api/courses");
 
 // GET /api/courses/:milestoneId
 export const getMilestone = (milestoneId: string) =>
+    api<MilestoneResponse>(`/api/courses/${milestoneId}/getResponse`);
+
+export const getMilestoneContent = (milestoneId: string) =>
     api<Milestone>(`/api/courses/${milestoneId}`);
 
 export const introduce = (payload: {
@@ -46,7 +54,7 @@ export const saveDraft = (milestoneId: string, payload: {
     });
 
 // POST /api/courses/unlock
-export const unlockNext = (payload: { userId: string; milestoneId: string }) =>
+export const unlockNext = (payload: { userId: string; milestoneId: string, prevMilestoneId: string }) =>
     api<{ message: string }>("/api/courses/unlock", {
         method: "POST",
         body: JSON.stringify(payload),

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -38,13 +38,29 @@ const EQTreasuredSecrets = [
 
 function EQTreasuredSecret() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [emotion, setEmotion] = useState<string>("");
     const [nextButtonDisabledState, setnextButtonDisabledState] = useState<boolean>(true);
+
+    useEffect(() => {
+        if (user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone2_6');
+
+                if (response) {
+                    console.log("response:", response);
+
+                    setEmotion(response.responses.emotion as string);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/7" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/7", prevMilestoneId: "milestone2/6" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

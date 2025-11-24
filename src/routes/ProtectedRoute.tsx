@@ -1,11 +1,9 @@
-// src/components/ProtectedRoute.tsx
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from '../context/AuthContext';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-    const { user, loading } = useAuth();
-    if (loading) return <div className="p-6">Loading…</div>;
-    if (!user) return <Navigate to="/login" replace />;
+    const { loading } = useAuth();
+    if (loading) return <div className="p-6 bg-white min-w-screen min-h-screen">Loading…</div>;
+    
     return children;
 }
 

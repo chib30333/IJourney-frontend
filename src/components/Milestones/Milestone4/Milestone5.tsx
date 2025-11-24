@@ -1,23 +1,43 @@
-import { useState } from "react";
-import { User, Phone, Mail, MapPin } from "lucide-react"
+import { useEffect, useState } from "react";
+import { User, MapPin } from "lucide-react"
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext, submitMilestone } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { unlockNext, submitMilestone, getMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
 import { CustomButton } from "../../../elements/buttons";
 import { Input } from '../../../elements/input';
-import { Progress } from '../../../elements/progress';
 
 function RoadwaysSummary() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [reflection, setReflection] = useState<string>("");
+    const [contract, setContract] = useState<Array<object>>();
+    const [resources, setResources] = useState<string[]>();
     const [isCompleted, setIsCompleted] = useState<boolean>(false);
+
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const responseRoles = await getMilestone('milestone4_3');
+                const responseResources = await getMilestone('milestone4_4');
+                const response = await getMilestone('milestone4_5');
+                
+                setContract(responseRoles.responses.network as Array<object>);
+                setResources(responseResources.responses.resources as string[]);
+
+                if (response) {
+                    setReflection(response.responses.reflection as string);
+                    setIsCompleted(true);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone5/1" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone5/1", prevMilestoneId: "milestone4/5" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -51,125 +71,32 @@ function RoadwaysSummary() {
     return (
         <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center text-center">
-                <h2 className="font-bold">M4.5: Roadways Summary & Commit</h2>
+                <h3 className="font-bold">M4.5: Roadways Summary & Commit</h3>
                 <h6>Finalize your resource map and commit to using your support network</h6>
-            </div>
-            <div className="p-4">
-                <h6 className='font-bold'>Milestone 4 Completed</h6>
-                <div className="relative w-full h-2 bg-[#21CBDA] rounded-full overflow-hidden">
-                    <Progress
-                        value={76}
-                        className="h-full bg-[#21CBDA] [&>div]:bg-[#1b9da8]"
-                    />
-                </div>
             </div>
             <div className="flex flex-col gap-6 px-6 py-8 bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                 <div className="flex flex-row gap-3">
                     <User />
                     <span className='font-bold uppercase'>Your 5 key Contacts</span>
                 </div>
-                <div className="p-4 flex flex-col gap-3 border-2 border-gray-300 border-dashed">
-                    <h4 className='font-bold'>Sarah Johnson</h4>
-                    <div className="">
-                        <h5>Mentor & College Advisor </h5>
-                        <h5>Pro: Spartanburg Youth Programs </h5>
-                    </div>
-                    <div className="flex flex-row gap-6">
-                        <div className="flex flex-row gap-4">
-                            <Phone />
-                            <span>(864) 555 - 9123</span>
+                {contract && contract.map((contact: any, index: number) => {
+                    return (
+                        <div key={index} className="p-4 flex flex-col gap-3 border-2 border-gray-300 border-dashed">
+                            <h4 className='font-bold'>{contact.name}</h4>
+                            <div className="">
+                                <h5>{contact.role}</h5>
+                            </div>
+                            <div className="flex flex-row gap-6">
+                                <div className="flex flex-row gap-4 text-ib-1">
+                                    <span>{contact.areaOfSupport}</span>
+                                </div>
+                                <div className="flex flex-row gap-4">
+                                    <span>{contact.contactGoal}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="flex flex-row gap-4">
-                            <Mail />
-                            <span>sarahj@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="p-4 flex flex-col gap-3 border-2 border-gray-300 border-dashed">
-                    <h4 className='font-bold'>Sarah Johnson</h4>
-                    <div className="">
-                        <h5>Mentor & College Advisor </h5>
-                        <h5>Pro: Spartanburg Youth Programs </h5>
-                    </div>
-                    <div className="flex flex-row gap-6">
-                        <div className="flex flex-row gap-4">
-                            <Phone />
-                            <span>(864) 555 - 9123</span>
-                        </div>
-                        <div className="flex flex-row gap-4">
-                            <Mail />
-                            <span>sarahj@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="p-4 flex flex-col gap-3 border-2 border-gray-300 border-dashed">
-                    <h4 className='font-bold'>Sarah Johnson</h4>
-                    <div className="">
-                        <h5>Mentor & College Advisor </h5>
-                        <h5>Pro: Spartanburg Youth Programs </h5>
-                    </div>
-                    <div className="flex flex-row gap-6">
-                        <div className="flex flex-row gap-4">
-                            <Phone />
-                            <span>(864) 555 - 9123</span>
-                        </div>
-                        <div className="flex flex-row gap-4">
-                            <Mail />
-                            <span>sarahj@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="p-4 flex flex-col gap-3 border-2 border-gray-300 border-dashed">
-                    <h4 className='font-bold'>Sarah Johnson</h4>
-                    <div className="">
-                        <h5>Mentor & College Advisor </h5>
-                        <h5>Pro: Spartanburg Youth Programs </h5>
-                    </div>
-                    <div className="flex flex-row gap-6">
-                        <div className="flex flex-row gap-4">
-                            <Phone />
-                            <span>(864) 555 - 9123</span>
-                        </div>
-                        <div className="flex flex-row gap-4">
-                            <Mail />
-                            <span>sarahj@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="p-4 flex flex-col gap-3 border-2 border-gray-300 border-dashed">
-                    <h4 className='font-bold'>Sarah Johnson</h4>
-                    <div className="">
-                        <h5>Mentor & College Advisor </h5>
-                        <h5>Pro: Spartanburg Youth Programs </h5>
-                    </div>
-                    <div className="flex flex-row gap-6">
-                        <div className="flex flex-row gap-4">
-                            <Phone />
-                            <span>(864) 555 - 9123</span>
-                        </div>
-                        <div className="flex flex-row gap-4">
-                            <Mail />
-                            <span>sarahj@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="p-4 flex flex-col gap-3 border-2 border-gray-300 border-dashed">
-                    <h4 className='font-bold'>Sarah Johnson</h4>
-                    <div className="">
-                        <h5>Mentor & College Advisor </h5>
-                        <h5>Pro: Spartanburg Youth Programs </h5>
-                    </div>
-                    <div className="flex flex-row gap-6">
-                        <div className="flex flex-row gap-4">
-                            <Phone />
-                            <span>(864) 555 - 9123</span>
-                        </div>
-                        <div className="flex flex-row gap-4">
-                            <Mail />
-                            <span>sarahj@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
+                    )
+                })}
             </div>
             <div className="flex flex-col gap-6 px-6 py-8 bg-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <div className="flex flex-row gap-3">
@@ -178,50 +105,16 @@ function RoadwaysSummary() {
                 </div>
                 <div className="flex flex-col md:flex-row gap-6">
                     <div className="flex flex-col w-full gap-6">
-                        <div className="flex justify-between items-center gap-10 border-2 border-ib-1 rounded-full bg-white px-8 py-2">
-                            <div className="">
-                                <h5 className='font-bold'>Explorers Program</h5>
-                                <h6>Education</h6>
-                            </div>
-                            <span className='px-3 py-1 rounded-[20px] bg-[#ff6f61] text-white'>Available</span>
-                        </div>
-                        <div className="flex justify-between items-center gap-10 border-2 border-ib-1 rounded-full bg-white px-8 py-2">
-                            <div className="">
-                                <h5 className='font-bold'>Explorers Program</h5>
-                                <h6>Education</h6>
-                            </div>
-                            <span className='px-3 py-1 rounded-[20px] bg-[#ff6f61] text-white'>Available</span>
-                        </div>
-                        <div className="flex justify-between items-center gap-10 border-2 border-ib-1 rounded-full bg-white px-8 py-2">
-                            <div className="">
-                                <h5 className='font-bold'>Explorers Program</h5>
-                                <h6>Education</h6>
-                            </div>
-                            <span className='px-3 py-1 rounded-[20px] bg-[#ff6f61] text-white'>Available</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col w-full gap-6">
-                        <div className="flex justify-between items-center gap-10 border-2 border-ib-1 rounded-full bg-white px-8 py-2">
-                            <div className="">
-                                <h5 className='font-bold'>Explorers Program</h5>
-                                <h6>Education</h6>
-                            </div>
-                            <span className='px-3 py-1 rounded-[20px] bg-[#ff6f61] text-white'>Available</span>
-                        </div>
-                        <div className="flex justify-between items-center gap-10 border-2 border-ib-1 rounded-full bg-white px-8 py-2">
-                            <div className="">
-                                <h5 className='font-bold'>Explorers Program</h5>
-                                <h6>Education</h6>
-                            </div>
-                            <span className='px-3 py-1 rounded-[20px] bg-[#ff6f61] text-white'>Available</span>
-                        </div>
-                        <div className="flex justify-between items-center gap-10 border-2 border-ib-1 rounded-full bg-white px-8 py-2">
-                            <div className="">
-                                <h5 className='font-bold'>Explorers Program</h5>
-                                <h6>Education</h6>
-                            </div>
-                            <span className='px-3 py-1 rounded-[20px] bg-[#ff6f61] text-white'>Available</span>
-                        </div>
+                        {resources && resources.map((resource: string, index: number) => {
+                            return (
+                                <div key={index} className="flex justify-between items-center gap-10 border-2 border-ib-1 rounded-full bg-white px-8 py-2">
+                                    <div className="">
+                                        <h5 className='font-bold'>{resource}</h5>
+                                    </div>
+                                    <span className='px-3 py-1 rounded-[20px] bg-[#ff6f61] text-white'>Available</span>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </div>

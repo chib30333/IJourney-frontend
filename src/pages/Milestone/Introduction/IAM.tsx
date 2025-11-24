@@ -1,7 +1,7 @@
 
 import { CustomButton } from "../../../elements/buttons";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../hooks";
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from "../../../controllers/courseController";
 import toast from "react-hot-toast";
 
@@ -9,15 +9,15 @@ import Image1 from "../../../assets/image/png/5.png";
 import Image2 from "../../../assets/image/png/4.png";
 
 function IAM() {
-    const user = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "introduction/starting-statement" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone0/2", prevMilestoneId: "milestone0/1" });
                 console.log(result)
                 toast.success(result.message);        
-                navigate("/introduction/starting-statement");
+                navigate('/milestones/milestone0/2');
             } catch (error: any) {
                 console.log(error);
                 toast.error(error.message);

@@ -16,7 +16,7 @@ function AboutUs() {
                         <div className="flex flex-col md:flex-row gap-10">
                             <div className="flex flex-1 relative cursor-pointer hover:scale-105 transition-all">
                                 <img src={ImageAboutUs} alt="" className='rounded-none' />
-                                <div className="absolute right-0 items-center justify-center gap-3 px-7 py-2 bg-[#e62b2599] border-2 border-solid border-[#e62b2599] text-white">
+                                <div className="absolute right-0 items-center justify-center gap-3 px-7 py-2 text-white">
                                     <div className="uppercase relative flex items-center font-bold justify-center flex-1 -mt-0.5 font-ib-3 text-[14px] tracking-[1.2px] leading-[normal]">
                                         The Office
                                     </div>

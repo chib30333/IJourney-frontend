@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useProgress } from "../../../context/ProgressContext";
 
 import MilestoneStepper from "./MilestoneMotion";
 import { TITLES } from "./MilestoneMotion";
@@ -7,6 +8,7 @@ import { Progress } from "../../../elements/progress";
 
 function OverRall() {
     const [current, setCurrent] = useState<number>(0)
+    const { progress } = useProgress();
     const completed = Array.from({ length: current }, (_, i) => i + 1)
 
     return (
@@ -36,12 +38,12 @@ function OverRall() {
                         <div className="space-y-6 w-full">
                             <div className="relative w-full h-5 bg-[#385581] rounded-full overflow-hidden">
                                 <Progress
-                                    value={76}
+                                    value={progress?.summary.percent}
                                     className="h-full bg-[#385581] [&>div]:bg-[#5197ff]"
                                 />
                             </div>
                             <p className="text-center font-extrabold text-[#252b42] text-xl sm:text-2xl">
-                                76% completed
+                                {Math.floor(progress?.summary.percent)}% completed
                             </p>
                         </div>
                     </div>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useAuth } from "../../../context/AuthContext";
-import { logout as logoutUser } from "../../../controllers/authController";
+import { useProgress } from "../../../context/ProgressContext";
 import toast from "react-hot-toast";
 import {
     ChevronDownIcon,
@@ -28,7 +28,8 @@ import { headerData } from "../../../datas/layoutData";
 
 function Header() {
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
+    const { user, userProfile, logout } = useAuth();
+    const { progress, currentMilestone, currentMilestoneChild } = useProgress();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const goToLogin = () => {
@@ -51,33 +52,33 @@ function Header() {
         }
     }
 
-    const goToMilestone = (item: any) => {
-        navigate(item.href);
-        if (user) {
-            if (item.state === 'complete') {
-                navigate(item.href);
-            } else if (item.state === 'processing') {
-                //continue
+    const goToMilestone = (item: any, index: number) => {
+        console.log(currentMilestone, currentMilestoneChild);
 
+        if (user) {
+            if (currentMilestone && currentMilestoneChild) {
+                if (index < currentMilestone) navigate(item.href);
+                else {
+                    toast.error("You have not unlocked this milestone yet.");
+                }
+            } else {
+                if (Math.floor(progress?.summary.percent) === 100) navigate(item.href);
+                else {
+                    toast.error("You have not unlocked this milestone yet.");
+                }
             }
+        } else {
+            toast.error("You need to log in to unlock the next milestone.");
         }
     }
 
     const onLogout = async () => {
-        try {
-            const data = await logoutUser();
-
-            if(data.success) {
-                toast.success(data.message);
-            } else {
-                toast.error(data.message);
-            }
-        }
-        catch (error) {
-
-        }
-
         await logout();
+        navigate("/");
+    }
+
+    const onProfile = async () => {
+        navigate("/profile");
     }
 
     return (
@@ -99,6 +100,7 @@ function Header() {
                                 <Popover className="flex jusify-center h-full relative">
                                     <PopoverButton className="flex items-center cursor-pointer gap-x-1 font-semibold outline-0 group-hover:text-[#ff6f61] px-4 xl:px-8 group">
                                         <img src={UserProfileImage} className="rounded-full w-10 " />
+                                        <span>{userProfile?.displayName}</span>
                                         <ChevronDownIcon aria-hidden="true" className="size-5" />
                                     </PopoverButton>
 
@@ -108,7 +110,7 @@ function Header() {
                                     >
                                         <div className="w-60 flex-auto overflow-hidden bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-sm/6 outline-1 -outline-offset-1 outline-white/80">
                                             <ul className="py-4 flex flex-col">
-                                                <li className="group relative flex items-center gap-x-4 px-6 py-3 text-gray-500 hover:bg-gray-200">
+                                                <li className="group relative flex items-center gap-x-4 px-6 py-3 text-gray-500 hover:bg-gray-200" onClick={onProfile}>
                                                     <UserCircle2 size={20} />
                                                     <span>My Profile</span>
                                                 </li>
@@ -168,17 +170,26 @@ function Header() {
                                     >
                                         <div className="w-screen max-w-sm flex-auto overflow-hidden bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-sm/6 outline-1 -outline-offset-1 outline-white/80">
                                             <div className="py-4 flex flex-col">
-                                                {headerData.solutions.map((item) => (
-                                                    <div onClick={() => goToMilestone(item)} key={item.name} className={`group relative flex items-center gap-x-4 rounded-lg px-6 pt-2 pb-3 transition-colors hover:bg-gray-200 ${user && (item.state === "complete" || item.state === "processing") ? "cursor-pointer" : "cursor-not-allowed"}`}>
+                                                {headerData.solutions.map((item, index) => (
+                                                    <div onClick={() => goToMilestone(item, index)} key={index} className={`group relative flex items-center gap-x-4 rounded-lg px-6 pt-2 pb-3 transition-colors hover:bg-gray-200 ${user && currentMilestone && (index < currentMilestone) ? "cursor-pointer" : progress?.summary.percent === 100 ? "cursor-pointer" : "cursor-not-allowed"}`}>
                                                         {
                                                             user ? (
                                                                 <div className="mt-1 flex size-8 flex-none items-center justify-center rounded-lg bg-white group-hover:bg-white/8">
-                                                                    {item.state === 'complete' && (
-                                                                        <CheckCircle aria-hidden="true" color="#2ECC71" />)}
-                                                                    {item.state === 'processing' && (
-                                                                        <LockKeyholeOpen aria-hidden="true" color="#ff6f61" />)}
-                                                                    {item.state === 'locked' && (
-                                                                        <LockKeyhole aria-hidden="true" color="#5c5c5c" />)}
+                                                                    {progress?.summary.percent === 100 ?
+                                                                        <CheckCircle aria-hidden="true" color="#2ECC71" />
+                                                                        : (
+                                                                            currentMilestone ?
+                                                                                <>
+                                                                                    {(currentMilestone && index < currentMilestone - 1) && (
+                                                                                        <CheckCircle aria-hidden="true" color="#2ECC71" />)}
+                                                                                    {(currentMilestone && index === currentMilestone - 1) && (
+                                                                                        <LockKeyholeOpen aria-hidden="true" color="#ff6f61" />)}
+                                                                                    {(currentMilestone && index >= currentMilestone) && (
+                                                                                        <LockKeyhole aria-hidden="true" color="#5c5c5c" />)}
+                                                                                </>
+                                                                                :
+                                                                                <LockKeyhole aria-hidden="true" color="#5c5c5c" />
+                                                                        )}
                                                                 </div>
                                                             )
                                                                 :

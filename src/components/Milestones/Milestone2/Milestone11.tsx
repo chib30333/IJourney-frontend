@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -28,7 +28,7 @@ const EQMatters: any = [
 
 function DefiningStrength() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [answers, setAnswers] = useState<Record<string, string>>({
         Humor: "",
         Honesty: "",
@@ -36,11 +36,23 @@ function DefiningStrength() {
         Kindness: "",
         Love: ""
     });
+
+    useEffect(() => {
+        if (user) {
+            const getResponse = async () => {
+                const response = await getMilestone('milestone2_11');
+                if(response) {
+                    setAnswers(response.responses.answers as Record<string, string>);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
     const next = async () => {
         if (user) {
             try {
                 await submitMilestone('milestone2_11', { userId: user?.uid, responses: { answers } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/12" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/12", prevMilestoneId: "milestone2/11" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -84,7 +96,7 @@ function DefiningStrength() {
             <div className="flex flex-col gap-4 bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-6">
                 <ul className='flex flex-col gap-4'>
                     {EQMatters.map((item: any, index: number) => (
-                        <li className='flex flex-col gap-2'>
+                        <li key={index} className='flex flex-col gap-2'>
                             <h5 className='font-bold'>{`${index + 1}.${item.title}`}</h5>
                             <h6>How did you use {item.title} last week?</h6>
                             <Textarea

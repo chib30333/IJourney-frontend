@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -14,11 +14,11 @@ import IconSparker from "../../../assets/image/milestones/sparker.svg";
 
 function ExploreEmotion() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/4" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/4", prevMilestoneId: "milestone1/3" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

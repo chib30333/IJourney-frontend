@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -15,7 +15,7 @@ import IconSparker from "../../../assets/image/milestones/sparker.svg";
 
 function GuidingQuestions() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [emotion1, setEmotion1] = useState<string>("");
     const [emotion2, setEmotion2] = useState<string>("");
     const [associateFeeling1, setAssociateFeeling1] = useState<string>("");
@@ -24,7 +24,7 @@ function GuidingQuestions() {
         if (user) {
             try {
                 await submitMilestone('milestone1_6', { userId: user?.uid, responses: { emotion1, emotion2, associateFeeling1, associateFeeling2 } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/7" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/7", prevMilestoneId: "milestone1/6" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -35,6 +35,21 @@ function GuidingQuestions() {
             toast.error("You need to log in to unlock the next milestone.");
         }
     }
+
+    useEffect(() => {
+        if(user) {
+            const getResponse = async () => {
+                const result = await getMilestone('milestone1_6');
+                if (result) {
+                    setEmotion1(result.responses.emotion1 as string);
+                    setEmotion2(result.responses.emotion2 as string);
+                    setAssociateFeeling1(result.responses.associateFeeling1 as string);
+                    setAssociateFeeling2(result.responses.associateFeeling2 as string);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
 
 
     const previous = () => {

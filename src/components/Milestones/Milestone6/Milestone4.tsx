@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -8,7 +8,7 @@ import { CustomButton } from "../../../elements/buttons";
 
 function RefineFinalize() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const journeyerStatement = {
         iAm: '',
         iBelieve: '',
@@ -20,7 +20,7 @@ function RefineFinalize() {
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone6/5" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone6/5", prevMilestoneId: "milestone6/4" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -35,6 +35,15 @@ function RefineFinalize() {
     const previous = () => {
         navigate('/milestones/milestone6/3');
     };
+
+    const handleGetAIFeedback = () => {
+        // Implement AI feedback logic here
+
+    }
+
+    const handleFinalizeStatement = () => {
+        
+    }
 
     return (
         <div className="flex flex-col gap-6">
@@ -53,9 +62,7 @@ function RefineFinalize() {
                             <p className="text-sm mb-2">"The 'I WILL' section could be strengthened by including measurable goals or timelines."</p>
                             <p className="text-sm">"Your confidence affirmations are powerful! Consider connecting them to specific skills or experiences."</p>
                         </div>
-                        <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
-                            Get AI Feedback
-                        </button>
+                        <CustomButton title="Get AI Feedback" onClickFunc={handleGetAIFeedback} type='green' className=' rounded-full'></CustomButton>
                     </div>
 
                     <div className="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
@@ -87,14 +94,7 @@ function RefineFinalize() {
                             </div>
                         </div>
                         <div className="mt-4 flex justify-end">
-                            <button
-                                onClick={() => {
-                                    alert("Congratulations! Your Journeyer's Statement has been finalized.");
-                                }}
-                                className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors"
-                            >
-                                Finalize Statement
-                            </button>
+                            <CustomButton title="Finalize Statement" onClickFunc={handleFinalizeStatement} type='red' className='rounded-full'></CustomButton>
                         </div>
                     </div>
                 </div>

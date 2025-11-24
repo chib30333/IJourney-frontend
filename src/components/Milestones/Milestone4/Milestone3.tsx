@@ -1,22 +1,31 @@
-import { useState } from 'react';
-import { useAuth } from '../../../hooks';
-import { unlockNext, submitMilestone } from '../../../controllers/courseController';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../../context/AuthContext';
+import { unlockNext, submitMilestone, getMilestone } from '../../../controllers/courseController';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { AlertCircle, User, Briefcase, Heart, GraduationCap, Target } from 'lucide-react';
 
 import { CustomButton } from '../../../elements';
 
+type NetworkPerson = {
+    id: number;
+    name: string;
+    role: string;
+    areaOfSupport: string;
+    specificNeed: string;
+    contactGoal: string;
+};
+
 function DefiningRoles() {
-    const user = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
 
     const initialNetwork = [
-        { id: 1, name: 'Ms. Chen', role: 'Mentor' },
-        { id: 2, name: 'Dad', role: 'Family' },
-        { id: 3, name: 'Alex', role: 'Peer' },
-        { id: 4, name: 'Mr. Johnson', role: 'Teacher' },
-        { id: 5, name: 'Dr. Rivera', role: 'Expert' }
+        { id: 1, name: '', role: '' },
+        { id: 2, name: '', role: '' },
+        { id: 3, name: '', role: '' },
+        { id: 4, name: '', role: '' },
+        { id: 5, name: '', role: '' }
     ];
 
     const [network, setNetwork] = useState(
@@ -35,6 +44,65 @@ function DefiningRoles() {
         { value: 'accountability', label: 'Accountability', icon: Target }
     ];
 
+    useEffect(() => {
+        if (user) {
+            const getResponse = async () => {
+                const responseSupports = await getMilestone('milestone4_2');
+                const response = await getMilestone('milestone4_3');
+                const supportsRaw = responseSupports?.responses?.supports;
+
+                // It might be an array or an object → normalize to array
+                const supportsArray: any[] = supportsRaw
+                    ? Array.isArray(supportsRaw)
+                        ? supportsRaw
+                        : Object.values(supportsRaw)
+                    : initialNetwork;
+
+                const base: NetworkPerson[] = supportsArray.map((person: any, index: number) => ({
+                    id: person.id ?? index + 1,
+                    name: person.name ?? initialNetwork[index]?.name ?? "",
+                    role: person.role ?? initialNetwork[index]?.role ?? "",
+                    areaOfSupport: "",
+                    specificNeed: "",
+                    contactGoal: ""
+                }));
+
+                // --- 2) If milestone4_3 has saved data, merge it on top of base ---
+
+                const savedRaw = response?.responses?.network;
+
+                if (savedRaw) {
+                    const savedArray: any[] = Array.isArray(savedRaw)
+                        ? savedRaw
+                        : Object.values(savedRaw);
+
+                    const merged = base.map(basePerson => {
+                        // match by id if present, otherwise by name
+                        const match = savedArray.find(
+                            (p: any) =>
+                                (p.id ?? p.name) === (basePerson.id ?? basePerson.name)
+                        );
+
+                        return match
+                            ? {
+                                ...basePerson,
+                                areaOfSupport: match.areaOfSupport ?? "",
+                                specificNeed: match.specificNeed ?? "",
+                                contactGoal: match.contactGoal ?? ""
+                            }
+                            : basePerson;
+                    });
+
+                    setNetwork(merged);
+                } else {
+                    // No existing 4_3 data → just show names/roles, blank right side
+                    setNetwork(base);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
     const handleInputChange = (id: number, field: string, value: string) => {
         setNetwork(prev =>
             prev.map(person =>
@@ -51,7 +119,7 @@ function DefiningRoles() {
         if (user) {
             try {
                 await submitMilestone('milestone4_3', { userId: user?.uid, responses: { network } });
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/4" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone4/4", prevMilestoneId: "milestone4/3" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

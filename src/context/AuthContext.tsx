@@ -4,14 +4,14 @@ import {
     onAuthStateChanged,
     onIdTokenChanged,
     signInWithEmailAndPassword,
-    signOut,
+    signOut
 } from 'firebase/auth';
 import type { User } from 'firebase/auth';
 import toast from 'react-hot-toast';
 import type { UserProfile } from '../lib/types';
 import { auth } from '../firebaseConfig';
 import { getProfile } from '../controllers/userController';
-import { login } from '../controllers/authController';
+import { login, logout as logoutUser } from '../controllers/authController';
 
 type AuthContextValue = {
     user: User | null;
@@ -78,8 +78,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // 3) Logout
     const logout = async () => {
-        await signOut(auth);
-        setUserProfile(null);
+        setLoading(true);
+        try {
+            const data = await logoutUser();
+            
+            if (data.success) {
+                setUserProfile(null);
+                toast.success(data.message);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error: any) {
+            toast.error(error?.message);
+        } finally {
+            await signOut(auth)
+            setLoading(false);
+        }
     };
 
     const value = useMemo<AuthContextValue>(

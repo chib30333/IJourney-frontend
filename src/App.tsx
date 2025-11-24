@@ -1,6 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ProgressProvider } from './context/ProgressContext';
 
 import {
   MainLayout,
@@ -17,6 +18,7 @@ import {
   ForgotPassword,
   UpdatePassword,
   Welcome,
+  Profile
 } from './pages';
 import { IAM, StartingStatement } from './pages';
 
@@ -28,20 +30,19 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <Landing /> },
-      { path: "aboutUs", element: <AboutUs /> },
+      { path: "aboutus", element: <AboutUs /> },
+      { path: "profile", element: <Profile /> }
     ]
   },
-
   { path: "/welcome", element: <Welcome /> },
   {
-    path: "introduction",
+    path: "milestones",
     element: <IntroductionLayout />,
     children: [
-      { path: "iam", element: <IAM /> },
-      { path: "starting-statement", element: <StartingStatement /> },
+      { path: "milestone0/1", element: <IAM /> },
+      { path: "milestone0/2", element: <StartingStatement /> },
     ]
   },
-
   {
     path: "/",
     element: <AuthLayout />,
@@ -66,7 +67,9 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <ProgressProvider>
+        <RouterProvider router={router} />
+      </ProgressProvider>
       <Toaster
         position="top-right"
         toastOptions={{

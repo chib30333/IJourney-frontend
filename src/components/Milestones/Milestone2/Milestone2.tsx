@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 import { CircleAlert } from "lucide-react";
@@ -37,11 +37,12 @@ const guidePosts: any = [
 
 function GuidePost6() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
+
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/3" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/3", prevMilestoneId: "milestone2/2" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);

@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
-import { unlockNext } from '../../../controllers/courseController';
+import { useAuth } from '../../../context/AuthContext';
+import { getMilestone, unlockNext } from '../../../controllers/courseController';
 import { submitMilestone } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -12,7 +12,7 @@ import { CircleAlert } from "lucide-react";
 import Image12 from "../../../assets/image/png/12.png";
 import Image13 from "../../../assets/image/png/13.png";
 import ImageEachOther from "../../../assets/image/milestones/each-other.png";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const guidePosts: any = [
     {
@@ -31,13 +31,29 @@ const guidePosts: any = [
 
 function MiaStory() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const [feeling, setFeeling] = useState<string>("");
     const [nextButtonDisabledState, setnextButtonDisabledState] = useState<boolean>(true);
+
+
+    useEffect(() => {
+        if (user) { 
+            const getResponse = async () => {
+                const response = await getMilestone('milestone2_3');
+
+                if(response) {
+                    setFeeling(response.responses.feeling as string);
+                    setnextButtonDisabledState(false);
+                }
+            }
+            getResponse();
+        }
+    }, [user])
+
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/4" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone2/4", prevMilestoneId: "milestone2/3" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
@@ -96,7 +112,7 @@ function MiaStory() {
                     made her realize how important it was to empathize with others and communicate effectively.
                     'Why were these important concepts not included in our curriculum?, she murmured, as she rolled her eyes, feeling educationally slighted by not receiving
                     this information sooner.
-                    The more she worked on her emotional intelligence, the more fulfilled she felt. She started to notice the little things: the way her friends lit up 
+                    The more she worked on her emotional intelligence, the more fulfilled she felt. She started to notice the little things: the way her friends lit up
                     when she praised them, the comfort they found in her listening ear during tough times, and the
                     joy of shared laughter Mia learned that true success wasn't just about grades; it was about building relationships and navigating
                     life’s ups and downs with grace Mia knew she had woven the threads of her IQ and EQ into a beautiful tapestry. She was ready to take on the world-not

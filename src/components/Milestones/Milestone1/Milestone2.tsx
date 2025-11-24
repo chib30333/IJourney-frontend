@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks';
+import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
@@ -12,13 +12,14 @@ import IconFeeling from "../../../assets/image/milestones/feeling.svg";
 import IconEmotion from "../../../assets/image/milestones/emotion.svg";
 import IconArrow from "../../../assets/image/milestones/arrow.svg";
 
+
 function Difference() {
     const navigate = useNavigate();
-    const user = useAuth();
+    const { user } = useAuth();
     const next = async () => {
         if (user) {
             try {
-                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/3" });
+                const result = await unlockNext({ userId: user?.uid, milestoneId: "milestone1/3", prevMilestoneId: "milestone1/2" });
                 toast.success(result.message);
             } catch (error: any) {
                 console.log(error);
