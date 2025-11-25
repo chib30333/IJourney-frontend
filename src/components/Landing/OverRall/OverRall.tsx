@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "../../../context/AuthContext";
 import { useProgress } from "../../../context/ProgressContext";
 
 import MilestoneStepper from "./MilestoneMotion";
@@ -7,7 +8,8 @@ import { TITLES } from "./MilestoneMotion";
 import { Progress } from "../../../elements/progress";
 
 function OverRall() {
-    const [current, setCurrent] = useState<number>(0)
+    const [current, setCurrent] = useState<number>(0);
+    const { user } = useAuth();
     const { progress } = useProgress();
     const completed = Array.from({ length: current }, (_, i) => i + 1)
 
@@ -43,7 +45,7 @@ function OverRall() {
                                 />
                             </div>
                             <p className="text-center font-extrabold text-[#252b42] text-xl sm:text-2xl">
-                                {Math.floor(progress?.summary.percent)}% completed
+                                {user ? Math.floor(progress?.summary.percent) : 0}% completed
                             </p>
                         </div>
                     </div>
