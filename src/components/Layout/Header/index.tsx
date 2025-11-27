@@ -77,8 +77,10 @@ function Header() {
         navigate("/");
     }
 
-    const onProfile = async () => {
-        navigate("/profile");
+    const onProgress = async () => {
+        navigate("/");
+
+        setTimeout(() => document.getElementById("overRallProgress")?.scrollIntoView({ behavior: "smooth" }), 300);
     }
 
     return (
@@ -110,9 +112,9 @@ function Header() {
                                     >
                                         <div className="w-60 flex-auto overflow-hidden bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-sm/6 outline-1 -outline-offset-1 outline-white/80">
                                             <ul className="py-4 flex flex-col">
-                                                <li className="group relative flex items-center gap-x-4 px-6 py-3 text-gray-500 hover:bg-gray-200" onClick={onProfile}>
+                                                <li className="group relative flex items-center gap-x-4 px-6 py-3 text-gray-500 hover:bg-gray-200" onClick={onProgress}>
                                                     <UserCircle2 size={20} />
-                                                    <span>My Profile</span>
+                                                    <span>My Progress</span>
                                                 </li>
                                                 <li className="group relative flex items-center gap-x-4 px-6 py-3 text-gray-500 hover:bg-gray-200">
                                                     <Settings size={20} />
