@@ -1,17 +1,16 @@
-import { useState } from "react";
-import { useAuth } from "../../../context/AuthContext";
-import { useProgress } from "../../../context/ProgressContext";
+import { useState } from 'react';
+import { useProgress } from '../../../context/ProgressContext';
 
-import MilestoneStepper from "./MilestoneMotion";
-import { TITLES } from "./MilestoneMotion";
+import MilestoneStepper from './MilestoneMotion';
+import { TITLES } from './MilestoneMotion';
 
-import { Progress } from "../../../elements/progress";
+import { Progress } from '../../../elements/progress';
 
 function OverRall() {
     const [current, setCurrent] = useState<number>(0);
-    const { user } = useAuth();
     const { progress } = useProgress();
     const completed = Array.from({ length: current }, (_, i) => i + 1)
+    
 
     return (
         <section className="flex items-start gap-3 py-10 w-full" id="overRallProgress">
@@ -45,7 +44,7 @@ function OverRall() {
                                 />
                             </div>
                             <p className="text-center font-extrabold text-[#252b42] text-xl sm:text-2xl">
-                                {user ? Math.floor(progress?.summary.percent) : 0}% completed
+                                {progress?.summary.percent ? Math.floor(progress?.summary.percent) : 0}% completed
                             </p>
                         </div>
                     </div>

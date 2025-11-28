@@ -1,5 +1,4 @@
-// src/controllers/adminController.ts
-import { api } from "../lib/api";
+import { api } from '../lib/api';
 
 export const adminGetUsers = () =>
     api<{ totalUsers: number; users: any[] }>("/api/admin/users");

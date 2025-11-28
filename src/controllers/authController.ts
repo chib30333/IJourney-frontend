@@ -38,7 +38,7 @@ export const register = async (name: string, email: string, password: string, ro
 
 export const logout = async () => {
     try {
-        const data = await api<{ message: string, success: boolean }>(`/api/auth/logout`, { method: "POST" }); // revokes refresh tokens server-side
+        const data = await api<{ message: string, success: boolean }>(`/api/auth/logout`, { method: "POST" });
         return data;
     } catch (error: any) {
         console.error("Error Log Out:", error);

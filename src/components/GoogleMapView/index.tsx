@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from "react";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import React, { useMemo, useState } from 'react';
+import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import { Button } from '../../elements';
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 
@@ -42,16 +43,16 @@ const GoogleMapView: React.FC = () => {
     if (!isLoaded) return <p>Loading map…</p>;
 
     return (
-        <div className="w-full space-y-4">
+        <div className="w-full space-y-4 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.16)] p-8">
             <div className="flex gap-2">
                 {places.map((place) => (
-                    <button
+                    <Button
                         key={place.id}
                         onClick={() => handlePlaceClick(place)}
-                        className="px-3 py-1 border rounded-lg cursor-pointer bg-red-500/85 text-white hover:bg-white hover:text-red-500"
+                        className="px-3 py-1 border cursor-pointer bg-red-500/85 text-white hover:bg-white hover:text-red-500"
                     >
                         {place.label}
-                    </button>
+                    </Button>
                 ))}
             </div>
 

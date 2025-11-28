@@ -1,10 +1,12 @@
-import {
-    ArrowRightIcon
-} from "lucide-react";
+import { ArrowRightIcon } from 'lucide-react';
 
-import { Avatar, AvatarImage } from "../../elements/avatar";
-import { Button } from "../../elements/buttons/button";
-import { Card, CardContent } from "../../elements/card";
+import { 
+    Avatar, 
+    AvatarImage, 
+    Button, 
+    Card, 
+    CardContent 
+} from '../../elements';
 
 const testimonials = [
     {

@@ -1,4 +1,3 @@
-// src/providers/AuthProvider.tsx
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import {
     onAuthStateChanged,
@@ -29,7 +28,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
 
-    // keep user in sync
     useEffect(() => {
         const unsub1 = onAuthStateChanged(auth, async (u) => {
             setUser(u);
@@ -46,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 setUserProfile(null);
             }
         });
-        const unsub2 = onIdTokenChanged(auth, (u) => setUser(u)); // updates when token refreshes
+        const unsub2 = onIdTokenChanged(auth, (u) => setUser(u));
         return () => {
             unsub1();
             unsub2();
@@ -58,11 +56,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const loginWithEmailPassword = async (email: string, password: string) => {
         setLoading(true);
         try {
-            // Firebase sign in
             const cred = await signInWithEmailAndPassword(auth, email, password);
             const idToken = await cred.user.getIdToken();
 
-            // Hit backend /api/auth/login to get full user doc
             const data = await login(idToken);
             setUserProfile(data.user as UserProfile);
 
@@ -76,7 +72,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     };
 
-    // 3) Logout
     const logout = async () => {
         setLoading(true);
         try {

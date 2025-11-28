@@ -1,5 +1,3 @@
-//header
-
 import Image12 from '../assets/image/png/12.png';
 import Image179 from '../assets/image/png/179.png';
 import Image94 from '../assets/image/png/94.png';

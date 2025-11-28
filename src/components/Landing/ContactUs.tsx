@@ -1,5 +1,5 @@
-import { Button } from "../../elements/buttons/button";
-import ImageContactUs from "../../assets/image/contact-us.svg";
+import { Button } from '../../elements/buttons/button';
+import ImageContactUs from '../../assets/image/contact-us.svg';
 
 function ContactUs() {
     return (

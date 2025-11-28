@@ -1,5 +1,4 @@
-// src/controllers/chatbotController.ts
-import { api } from "../lib/api";
+import { api } from '../lib/api';
 
 export type ChatMessage = { role: "user" | "ai"; text: string; createdAt?: string };
 export type ChatResponse = { response: string; formFields?: Record<string, unknown> };

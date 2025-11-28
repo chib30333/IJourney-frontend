@@ -1,5 +1,5 @@
-import { Button } from "./button";
-import CustomButton from "./customButton";
+import { Button } from './button';
+import CustomButton from './customButton';
 
 export {
     Button,

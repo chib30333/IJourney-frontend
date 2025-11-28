@@ -1,13 +1,13 @@
 
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import { useProgress } from "../../context/ProgressContext";
-import { unlockNext } from "../../controllers/courseController";
-import toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { useProgress } from '../../context/ProgressContext';
+import { unlockNext } from '../../controllers/courseController';
+import toast from 'react-hot-toast';
 
-import { Button } from "../../elements/buttons/button";
-import { Card, CardContent } from "../../elements/card";
-import { sidebarData } from "../../datas/layoutData";
+import { Button } from '../../elements/buttons/button';
+import { Card, CardContent } from '../../elements/card';
+import { sidebarData } from '../../datas/layoutData';
 
 function Continue() {
     const navigate = useNavigate();

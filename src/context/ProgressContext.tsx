@@ -1,14 +1,13 @@
-// src/context/ProgressContext.tsx
 import {
     createContext,
     useContext,
     useEffect,
     useMemo,
     useState,
-} from "react";
-import { useAuth } from "./AuthContext";
-import { getUserProgress } from "../controllers/userController";
-import type { ProgressContextValue } from "../lib/types";
+} from 'react';
+import { useAuth } from './AuthContext';
+import { getUserProgress } from '../controllers/userController';
+import type { ProgressContextValue } from '../lib/types';
 
 const ProgressContext = createContext<ProgressContextValue | null>(null);
 

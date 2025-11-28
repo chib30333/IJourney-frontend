@@ -1,5 +1,5 @@
-import { api } from "../lib/api";
-import type { UserProfile } from "../lib/types";
+import { api } from '../lib/api';
+import type { UserProfile } from '../lib/types';
 
 export const getProfile = () => api<UserProfile>("/api/user/profile");
 
@@ -17,4 +17,4 @@ export const getUserProgress = () =>
 export const getDashboardData = () =>
     api<{ profile: UserProfile; progressSummary: any; totalMilestones: number }>(
         "/api/user/dashboard"
-    ); // if you expose it; else build from the two above
+    );

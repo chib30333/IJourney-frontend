@@ -1,7 +1,7 @@
-import { Card, CardContent } from "../../elements/card";
+import { Card, CardContent } from '../../elements/card';
 
-import { featureData } from "../../datas/landingData";
-import ImageBook from "../../assets/image/book.png";
+import { featureData } from '../../datas/landingData';
+import ImageBook from '../../assets/image/book.png';
 function Features() {
     return (
         <section className="flex items-start gap-3 py-0 w-full" id="introduce">

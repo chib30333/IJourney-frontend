@@ -1,4 +1,4 @@
-import ImagePlayButton from "../../assets/image/play-btn.svg";
+import ImagePlayButton from '../../assets/image/play-btn.svg';
 
 function Video() {
     return (

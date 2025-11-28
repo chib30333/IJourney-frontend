@@ -1,11 +1,11 @@
-import { ArrowRightIcon } from "lucide-react";
-import { Avatar, AvatarImage } from "../../elements/avatar";
-import { Button } from "../../elements/buttons/button";
-import { Card, CardContent } from "../../elements/card";
+import { ArrowRightIcon } from 'lucide-react';
+import { Avatar, AvatarImage } from '../../elements/avatar';
+import { Button } from '../../elements/buttons/button';
+import { Card, CardContent } from '../../elements/card';
 
-import ImagePlayButton from "../../assets/image/play-btn.svg";
-import ImageFrame from "../../assets/image/frame.svg";
-import ImageAvatar from "../../assets/image/avatar/avatar3.jfif";
+import ImagePlayButton from '../../assets/image/play-btn.svg';
+import ImageFrame from '../../assets/image/frame.svg';
+import ImageAvatar from '../../assets/image/avatar/avatar3.jfif';
 
 function Introduction() {
     return (
