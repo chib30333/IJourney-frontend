@@ -1,5 +1,3 @@
-import ImagePlayButton from '../../assets/image/play-btn.svg';
-
 function Video() {
     return (
         <section className="flex items-start gap-3 py-0 w-full" id="video">
@@ -19,8 +17,9 @@ function Video() {
                         </div>
                         <div className="flex flex-col justify-center items-center w-3/5 z-3">
                             <div className="flex flex-col relative w-full justify-center items-center">
-                                <iframe className="aspect-video bg-[#D9D9D9] w-full h-auto rounded-2xl" src=""></iframe>
-                                <img src={ImagePlayButton} alt="" className="absolute left-[calc(50%-45px])] bottom-[calc(50%-45px]] w-10 md:w-20 cursor-pointer hover:opacity-70" />
+                                <video className="aspect-video bg-[#D9D9D9] w-full h-auto rounded-2xl" src="https://vidplay.io/stream/utbNYHNCNzqtf6xEzJ3idw" controls>
+                                    Your browser does not support the video tag.
+                                </video>
                             </div>
                         </div>
                         <div className="w-full bg-custom absolute bottom-0 left-0 h-2/5"></div>
