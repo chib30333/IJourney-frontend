@@ -38,7 +38,7 @@ function GemsInTreasureChest() {
                     These gems represent your inner resources for your journey ahead.</h6>
             </div>
             <div className="flex flex-col gap-2">
-                <h4 className='font-bold uppercase'>It’s your turn</h4>
+                <h4 className='font-bold uppercase'>It's your turn</h4>
                 <h6>The free VIA Youth Character Strengths assessment is super easy to use, consists of 98 questions and takes about 15 minutes to complete.</h6>
                 <a href="https://viacharacter.org/surveys/takesurvey" className='text-ib-1 underline font-bold text-[12px] md:text-[16px]'>https://viacharacter.org/surveys/takesurvey</a>
                 <div className="flex flex-col md:flex-row justify-between">

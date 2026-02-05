@@ -58,7 +58,7 @@ function IntroCharacter() {
                     <h3 className='font-extrabold italic'>
                         <span className='text-[#18E930]'>KAI</span>&nbsp;
                         <span className='text-[#F9AF46]'>+</span>&nbsp;
-                        <span className='text-[#FA3131]'>TALIA’S</span>&nbsp;
+                        <span className='text-[#FA3131]'>TALIA'S</span>&nbsp;
                         <span className='text-[#F9AF46]'>STORY</span>&nbsp;
                     </h3>
                 </div>

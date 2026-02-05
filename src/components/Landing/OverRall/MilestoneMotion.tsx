@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const TITLES: Record<number, string> = {
-    1: "Journeyer’s Statement",
+    1: "Journeyer's Statement",
     2: "Oasis Explorations",
     3: "Unchartered Territory",
     4: "Resources Roadways",

@@ -18,7 +18,7 @@ function MilestoneLayout() {
             </div>
             <Chatbot />
         </div>
-    )
-}
+    );
+};
 
-export default MilestoneLayout
+export default MilestoneLayout;

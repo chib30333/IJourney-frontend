@@ -75,7 +75,7 @@ function Confidence() {
                         // For each saved trait string, find its index in the tableTraits array
                         const indices = traits
                             .map((trait) => tableTraits[groupIndex].indexOf(trait))
-                            .filter((i) => i !== -1); // ignore if text changed and doesn’t match
+                            .filter((i) => i !== -1); // ignore if text changed and doesn't match
 
                         preChecked[groupIndex] = indices;
                     });

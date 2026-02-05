@@ -10,6 +10,8 @@ import { useParams } from 'react-router-dom';
 
 import { ArrowLeftFromLine, ArrowRightFromLine, AlarmClock, AlarmClockCheck, AlarmClockMinusIcon } from "lucide-react";
 
+import { control_scroll } from '../../../lib/utils';
+
 function useIsDesktop() {
     const [isDesktop, setIsDesktop] = useState(() =>
         typeof window !== "undefined" ? window.innerWidth >= 1024 : true
@@ -19,7 +21,6 @@ function useIsDesktop() {
         function handleResize() {
             setIsDesktop(window.innerWidth >= 1024)
         }
-
         window.addEventListener("resize", handleResize)
         return () => window.removeEventListener("resize", handleResize)
     }, [])
@@ -29,14 +30,15 @@ function useIsDesktop() {
 
 function Sidebar() {
     const isDesktop = useIsDesktop();
-    const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
+    const [collapsed, setCollapsed] = useState(false);
     const { currentMilestone, currentMilestoneChild, refreshProgress, progress } = useProgress();
 
     const url = document.baseURI.split('/');
     const params = useParams();
 
     useEffect(() => {
+        control_scroll("top");
         refreshProgress();
     }, [params])
 
