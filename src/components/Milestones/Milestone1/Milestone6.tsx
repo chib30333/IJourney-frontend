@@ -12,6 +12,7 @@ import { Textarea } from '../../../elements/textarea';
 import ImageMentalHealth from "../../../assets/image/milestones/mental-health.png";
 import ImageLamp from "../../../assets/image/milestones/lamp.png";
 import IconSparker from "../../../assets/image/milestones/sparker.svg";
+import ImageFeelingWheel from "../../../assets/image/milestones/feeling-wheel.png";
 
 function GuidingQuestions() {
     const navigate = useNavigate();
@@ -82,8 +83,11 @@ function GuidingQuestions() {
                     Radiating outward from each core emotion are increasingly specific emotions that help you pinpoint exactly what you're feeling.
                     The more specific you can be about your emotions, the better you can understand and address them.</h6>
             </div>
+            <div className="w-full flex justify-center">
+                <img src={ImageFeelingWheel} alt="" />
+            </div>
             <div className="flex flex-col gap-4 px-6 pt-6 pb-8 bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
-                <h4 className='font-bold'>Locating your finisher's spark</h4>
+                <h4 className='font-extrabold text-center'>Locating your finisher's spark</h4>
                 <p><span className='font-bold'>Identity</span> and <span className='font-bold'>Reflect</span> on at least two emotions you have completing this workbook.</p>
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-col sm:flex-row justify-center gap-4 items-center">
