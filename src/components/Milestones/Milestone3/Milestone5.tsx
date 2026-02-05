@@ -21,13 +21,18 @@ function CareerResearchLog() {
     useEffect(() => {
         if (user) {
             const loadData = async () => {
-                const careersMilestone = await getMilestone("milestone3_3");
-                const researchMilestone = await getMilestone("milestone3_5");
+                const careersMilestone = await getMilestone('milestone3_3');
 
-                // Convert object to array safely
                 const careerList: string[] = Object.values(
                     careersMilestone?.responses?.careers || {}
                 );
+
+                setResearchData(researchData.map((item: any, index: number) => ({
+                    ...item,
+                    career: careerList[index] || ""
+                })));
+
+                const researchMilestone = await getMilestone('milestone3_5');
 
                 if (researchMilestone?.responses?.researchData) {
                     const savedResearch = researchMilestone.responses.researchData;
