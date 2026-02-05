@@ -77,13 +77,11 @@ function EQ() {
                 <h6 className='font-bold'>This reflection connects your emotion identification work from Milestone 1 to understanding how emotions influence your actions.</h6>
             </div>
             <div className="flex flex-col gap-6">
-                <h5 className=''>With the shadow of anxiety and depression lengthening over teenagers, the need for Emotional Intelligence has never felt more urgent.
-                    It's like arming you with emotional raincoats before they get caught in the downpour of overwhelming feelings, leaving them stuck in the mud,
-                    unable to productively move forward on the journey.
-
-                    Next we will explore 6 guideposts to direct the path to increasing your emotional intelligence. (Using this knowledge, we will examine emotional
-                    intelligence through stories of Mia and Jordan You see how emotional Intelligence EQ) is similar to your copilot on the roller coaster ride of
-                    emotions. High EQ is like a wisdom compass from the heart, guiding you to understand and respond to your emotions in a way that builds bridges, not walls.</h5>
+                <h5 className=''>As anxiety and depression cast a growing shadow over teenagers, the need for emotional intelligence has never felt more urgent. 
+                    It’s like equipping yourself with an emotional raincoat before the storm hits — so overwhelming feelings don’t leave you stuck, unable to move forward.
+                    Next, we’ll explore six guideposts that help strengthen emotional intelligence. 
+                    Through the stories of Mia and Jordan, you’ll see how emotional intelligence acts like a trusted copilot on the roller coaster of emotions — helping you navigate the highs and lows with clarity and confidence.
+                    High EQ becomes a wisdom compass from the heart, guiding you to understand and respond to your emotions in ways that build bridges, not walls.</h5>
             </div>
             <div className="flex justify-center">
                 <img src={ImageEQ} alt="" />
