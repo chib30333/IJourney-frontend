@@ -18,11 +18,11 @@ import Image16 from "../../../assets/image/png/16.png";
 const guidePosts: any = [
     {
         title: "Self-Awareness",
-        text: "She learned to recognize and name intense emotions like anger and frustration instead of ignoring them.",
+        text: "Jordan learned to recognize emotions like frustration and embarrassment instead of hiding them.",
     },
     {
         title: "Effective Problem Solving",
-        text: "Mia developed coping mechanisms: pausing, regulating feelings, and re-engaging rather than quitting.",
+        text: "When faced with difficulties, you don't panic or give up. You pause, break the problem down into smaller parts, and identify the aspects you can control. Instead of reacting impulsively, you choose deliberate steps that allow you to move forward.",
     },
     {
         title: "Managing Emotions",
@@ -102,7 +102,7 @@ function JordanStory() {
                     leaving him lost and frustrated.
 
                     One fateful day, the results of his science exam were handed back to the class. As Jordan stared at the red ink glaring at him from
-                    the paper-an unforgiving "F"-his heart sank without thinking, he ripped the paper in half, his anger boiling over. "This is why I don't try in this class, I hate science,
+                    the paper-an unforgiving "F"-his heart sank without thinking, he ripped the paper in half, his anger boiling over. "This is why I don't try in this class. I hate science,
                     and I'm never going to pass!" he yelled, his voice echoing through the room. The humiliation mixed with rage fueled his rebellion.
                     In the weeks that followed, Jordan stopped attending science class altogether. On the rare occasions he did show up, he would sit in the back, hoodie
                     pulled over his head, trying to disappear into the fabric. When the teacher droned on about chemical reactions, he buried his head on the desk
@@ -114,9 +114,9 @@ function JordanStory() {
                     even glancing at the material. When his teacher asked to meet with him after class, she expressed her concern. "I've noticed you haven't
                     been putting in much effort lately. If you want to pass, you need to start showing that you care about your work" she said, her voice firm but concerned.
 
-                    "Nah, what's the use.....I'm cool" he replied, dismissing her words. Inside, he thought, "I can handle failing without effort, but I can't
-                    withstand putting in effort and not passing." This mindset became his shield, a wall he fortified with each negative.. thought.
-                    Slowly he found himself withdrawing from all aspects of school, and even his friends began to fade away, unable to reach the boy who had become a
+                    "Nah, what's the use.....I'm cool", he replied, dismissing her words. Inside, he thought, "I can handle failing without effort, but I can't
+                    withstand putting in effort and not passing." This mindset became his shield, a wall he fortified with each negative thought.
+                    Slowly he found himself withdrawing from all aspects of school, and even his friends began to fade away. Unable to reach the boy who had become a
                     ghost of his former self.
 
                     As time passed, Jordan's grades in other subjects slipped as well, falling to a point where he was at risk of not moving into the ninth grade.
@@ -125,18 +125,20 @@ function JordanStory() {
                     dropped out of school, stuck in a dead-end job that drained him, yet offered a false sense of stability.</h5>
                 <div className="">
                     <h4 className='font-bold'>The Problem: Failure & Frustration</h4>
-                    <p>Mia was academically gifted, but she felt lonely and disconnected. When setbacks happened, she quickly became frustrated and often gave up — and she
-                        struggled to relate naturally with her classmates.</p>
+                    <p>Jordan failed not because he lacked interest, but because he felt lost.
+                        Science was too difficult for him. The numbers seemed jumbled, the classes moved too quickly, and every failure felt like a personal problem. 
+                        Every time he struggled, frustration overwhelmed him. He closed off, avoided asking for help, and began to believe he wasn't "good enough."
+                        Over time, Jordan became disconnected from both school and himself.
+                    </p>
                 </div>
                 <div className="">
                     <h4 className='font-bold'>The Discovery: Auditory Learning</h4>
-                    <p>Using self-awareness and support, Jordan took a learning-style check and learned he retained information best by hearing it. That insight changed how he studied and
-                        how he felt about himself.</p>
+                    <p>Through self-awareness and support from those around him, Jordan realized that he learned best by listening. This realization changed his learning style and how he viewed himself.</p>
                 </div>
                 <div className="">
                     <h4 className='font-bold'>The Transformation: New Strategy</h4>
-                    <p>He recorded himself reading flashcards, listened to lectures, and even made short songs. Studying became more effective and less draining — his grades improved and
-                        his confidence returned.</p>
+                    <p>Jordan recorded his lectures, listened to them instead of rereading them, and even made short songs from his notes. Learning became easier, his confidence grew, and his grades gradually improved.
+                        This demonstrates that Jordan is actively participating in his own growth..</p>
                 </div>
             </div>
             <div className="flex flex-col mt-10">
