@@ -79,7 +79,7 @@ function ONetAssessment() {
                 </div>
             </div>
             <h4 className='font-bold text-center hover:underline hover:cursor-pointer hover:text-ib-1'>
-                <a href='https://www.mynextmove.org/' target='_blank' rel='noreferrer'>https://www.mynextmove.org/</a>
+                <a href='https://www.mynextmove.org/' target='_blank' rel='noreferrer' className='text-ib-2 underline'>https://onetinterestprofiler.org/</a>
             </h4>
             <h5 className='text-center font-bold'>This will open in a new tab so you won't lose your place in iJOURNEY</h5>
             <div className="flex justify-between w-full gap-2 text-center">
