@@ -16,11 +16,11 @@ const guidePosts: any = [
     },
     {
         title: 'Effective Problem Solving',
-        text: 'Instead of reacting on impluse, you’ll study the game board, strategize, and come up with solutions that checkmate the problem'
+        text: 'Instead of reacting on impluse, you'll study the game board, strategize, and come up with solutions that checkmate the problem'
     },
     {
         title: 'Managing Emotions',
-        text: 'Serves as your emotions steering wheel, When the road gets rough with stress, you’ll be able to pull over, breathe, and steer clear of impulse wrong turns'
+        text: 'Serves as your emotions steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulse wrong turns'
     },
     {
         title: 'Smart Decision Making',

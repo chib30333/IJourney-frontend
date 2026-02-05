@@ -27,16 +27,16 @@ function AboutUs() {
                   At IJourney, we believe everyone deserves the chance to understand themselves and move toward a future filled with purpose.
                   Our program was created to offer thoughtful guidance, emotional support, and practical tools that help individuals of all ages connect with their values,
                   strengths, and goals.
-                  From our home in Simpsonville, South Carolina, we’re proud to serve people seeking growth, healing, or direction.
+                  From our home in Simpsonville, South Carolina, we're proud to serve people seeking growth, healing, or direction.
                 </h5>
                 <h5>
-                  <span className="font-bold text-ib-1">You’ll find our team at:</span>
+                  <span className="font-bold text-ib-1">You'll find our team at:</span>
 
                   <span>3104 Grandview Drive</span>
                   <span>Suite B</span>
                   <span>Simpsonville, SC 29680</span>
                 </h5>
-                <h5 className="font-bold italic">Together, let’s discover the purpose that’s been within you all along.</h5>
+                <h5 className="font-bold italic">Together, let's discover the purpose that's been within you all along.</h5>
               </div>
             </div>
           </div>

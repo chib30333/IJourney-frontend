@@ -61,7 +61,7 @@ export const sidebarData = {
     milestoneMenus: [
         [
             { title: "M1.1: Your Inner Compass", url: "/milestones/milestone1/1" },
-            { title: "M1.2: What’s the Difference", url: "/milestones/milestone1/2" },
+            { title: "M1.2: What's the Difference", url: "/milestones/milestone1/2" },
             { title: "M1.3: Exploring Your Emotions", url: "/milestones/milestone1/3" },
             { title: "M1.4: The Interactive Feelings Wheel", url: "/milestones/milestone1/4" },
             { title: "M1.5: Identifying Your True North", url: "/milestones/milestone1/5" },
@@ -71,8 +71,8 @@ export const sidebarData = {
         [
             { title: "M2.1: Intro Your Oasis", url: "/milestones/milestone2/1" },
             { title: "M2.2: The 6 Guideposts to EQ", url: "/milestones/milestone2/2" },
-            { title: "M2.3: Mia’s Story", url: "/milestones/milestone2/3" },
-            { title: "M2.4: Jordan’s Story", url: "/milestones/milestone2/4" },
+            { title: "M2.3: Mia's Story", url: "/milestones/milestone2/3" },
+            { title: "M2.4: Jordan's Story", url: "/milestones/milestone2/4" },
             { title: "M2.5: EQ: Emotional Intelligence", url: "/milestones/milestone2/5" },
             { title: "M2.6: EQ Treasured Secrets", url: "/milestones/milestone2/6" },
             { title: "M2.7: What is Self-Esteem?", url: "/milestones/milestone2/7" },

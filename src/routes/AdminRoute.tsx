@@ -3,6 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../lib/api';
 
+import LoadingSpinner from '../components/Loader';
+
 export function AdminRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useAuth();
     const [allowed, setAllowed] = useState<boolean | null>(null);
@@ -11,7 +13,7 @@ export function AdminRoute({ children }: { children: React.ReactNode }) {
         let mounted = true;
 
         (async () => {
-            if (loading) return;
+            if (loading) return <LoadingSpinner /> ;
             if (!user) return setAllowed(false);
             try {
                 await api(`/api/admin/analytics`, { method: "GET" });

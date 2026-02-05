@@ -150,7 +150,7 @@ export const milestoneData = {
             id: 2,
             time: "59:41",
             name: "Milestone 2",
-            title: "What’s the Difference?",
+            title: "What's the Difference?",
             description:
                 "Centers on uncovering your unique strengths, character traits, and treasures.",
             status: "completed",

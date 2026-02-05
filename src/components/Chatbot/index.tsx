@@ -83,7 +83,7 @@ function Chatbot() {
                             <Card className="flex flex-col items-start relative w-full bg-white border-none rounded-[20px] max-w-[250px]">
                                 <CardContent className="flex flex-col items-start gap-[30px] p-3 text-[14px] font-medium">
                                     <p className="flex items-center justify-center self-stretch font-body-b3 text-second-text-color [font-style:var(--body-b3-font-style)]">
-                                        I’ll help you explore your learning path step-by-step. Ready to begin?
+                                        I'll help you explore your learning path step-by-step. Ready to begin?
                                     </p>
                                 </CardContent>
                             </Card>

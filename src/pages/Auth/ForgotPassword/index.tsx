@@ -49,7 +49,7 @@ function ForgotPassword() {
                         </Link>
                     </div>
                     <span className="z-6 [--animation-delay:200ms] font-medium text-[20px] text-center text-white">
-                        If you forgot your password, Don’t worry about it at all. You can update your password to a new password that you wanted in here.
+                        If you forgot your password, Don't worry about it at all. You can update your password to a new password that you wanted in here.
                     </span>
                     <div className="flex justify-center">
                         <img src={ImageAuth} alt="Auth Background Image" className="" />

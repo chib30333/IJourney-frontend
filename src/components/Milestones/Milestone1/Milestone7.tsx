@@ -60,7 +60,7 @@ function StatementBuilder() {
     return (
         <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center">
-                <h3 className="font-bold text-center">M1.7: Journeyer’s Statement Builder</h3>
+                <h3 className="font-bold text-center">M1.7: Journeyer's Statement Builder</h3>
                 <h6>Utilize the Locating Your Finisher's Spark worksheet to craft your Journeyers Statement. If you identify any demotivating feelings,
                     recognize them and take a moment to reflect on how you can progress despite these obstacles.</h6>
             </div>

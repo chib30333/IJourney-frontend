@@ -25,7 +25,7 @@ const guidePosts: any = [
     },
     {
         title: 'Managing Emotions',
-        text: 'Serves as your emotions steering wheel, When the road gets rough with stress, you’ll be able to pull over, breathe, and steer clear of impulsive wrong turns'
+        text: 'Serves as your emotions steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulsive wrong turns'
     }
 ]
 
@@ -87,7 +87,7 @@ function MiaStory() {
     return (
         <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center">
-                <h3 className="font-bold">M2.3: Mia’s Story</h3>
+                <h3 className="font-bold">M2.3: Mia's Story</h3>
                 <h6></h6>
             </div>
             <div className="flex flex-col gap-6">
@@ -115,7 +115,7 @@ function MiaStory() {
                     The more she worked on her emotional intelligence, the more fulfilled she felt. She started to notice the little things: the way her friends lit up
                     when she praised them, the comfort they found in her listening ear during tough times, and the
                     joy of shared laughter Mia learned that true success wasn't just about grades; it was about building relationships and navigating
-                    life’s ups and downs with grace Mia knew she had woven the threads of her IQ and EQ into a beautiful tapestry. She was ready to take on the world-not
+                    life's ups and downs with grace Mia knew she had woven the threads of her IQ and EQ into a beautiful tapestry. She was ready to take on the world-not
                     just as a smart student but as a compassionate friend, a confident communicator, and a resilient young woman And that she realized,
                     was the key to a rich and fulfilling life.
                 </p>

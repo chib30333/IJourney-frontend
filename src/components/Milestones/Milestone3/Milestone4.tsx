@@ -139,15 +139,15 @@ const LifestyleCalculator = () => {
                 <h6>Translate your dreams into concrete financial needs. Calculate the minimum salary required to support your desired adult lifestyle.</h6>
             </div>
             <div className="p-6">
-                <h5>Jump$tart’s Reality Check is a super cool online tool that can help you think about your money and future! It’s like a mini financial planner that shows
-                    you how much money you’ll need to live the way you want when you grow up.
+                <h5>Jump$tart's Reality Check is a super cool online tool that can help you think about your money and future! It's like a mini financial planner that shows
+                    you how much money you'll need to live the way you want when you grow up.
                     With this tool, you can figure out things like how much you need for a place to live, food, clothes, transportation, fun activities, and even savings.
-                    It gives you an idea of the annual income you’ll need to keep up with your dream lifestyle.
+                    It gives you an idea of the annual income you'll need to keep up with your dream lifestyle.
                     When you know how much money you need, you can make better choices about what kind of job you want to have. If you have a specific lifestyle in mind,
-                    you can look at the average salaries of the different careers you’ve researched to see if they match up. Sometimes, you might realize that you’re okay
-                    with changing your lifestyle a bit for a job that makes you really happy. Or, if you’re torn between two careers that you like, but they pay different amounts,
+                    you can look at the average salaries of the different careers you've researched to see if they match up. Sometimes, you might realize that you're okay
+                    with changing your lifestyle a bit for a job that makes you really happy. Or, if you're torn between two careers that you like, but they pay different amounts,
                     understanding what you need for your lifestyle can really help you decide!
-                    So, check out Jump$tart’s Reality Check and start dreaming about your future while being smart about your money!</h5>
+                    So, check out Jump$tart's Reality Check and start dreaming about your future while being smart about your money!</h5>
             </div>
             <h4 className='font-bold text-center hover:underline hover:cursor-pointer hover:text-ib-1'>
                 <a href='https://www.jumpstart.org/education/reality-check/' target='_blank' rel='noreferrer'>https://www.jumpstart.org/education/reality-check/</a>

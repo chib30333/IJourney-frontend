@@ -26,7 +26,7 @@ const guidePosts: any = [
     },
     {
         title: 'Managing Emotions',
-        text: 'Serves as your emotional steering wheel, When the road gets rough with stress, you’ll be able to pull over, breathe, and steer clear of impulsive wrong turns'
+        text: 'Serves as your emotional steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulsive wrong turns'
     }
 ]
 
@@ -86,7 +86,7 @@ function JordanStory() {
     return (
         <div className="flex flex-col gap-6 text-[#5C5C5C] text-[14px]">
             <div className="flex flex-col items-center">
-                <h3 className="font-bold">M2.4: Jordan’s Story</h3>
+                <h3 className="font-bold">M2.4: Jordan's Story</h3>
                 <h6></h6>
             </div>
             <div className="flex flex-col gap-6">
