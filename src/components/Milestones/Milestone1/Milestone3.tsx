@@ -53,7 +53,8 @@ function ExploreEmotion() {
                     The more specific you can be about your emotions, the better you can understand and address them.</h6>
             </div>
             <div className="flex flex-col gap-4 px-6 pt-6 pb-8 bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
-                <h4 className='font-extrabold'>Locating your finisher's spark</h4>
+                <span className='uppercase font-bold text-[#179E54]'>example</span>
+                <h4 className='font-extrabold text-center'>Locating your finisher's spark</h4>
                 <p>Identity and Reflect on at least two emotions you have completing this workbook.</p>
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-col sm:flex-row justify-center gap-4 items-center">
