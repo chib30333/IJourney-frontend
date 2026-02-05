@@ -142,7 +142,7 @@ function Confidence() {
             <h5>To cultivate that sweet, but healthy spot of confidence, we will continue to take moments for self-reflection ,
                 identify strengths and pinpoint new horizons to explore.
 
-                Remember, the journey is an epic expedition of learning and self - discovery . By finding that perfect balance of confidence,
+                Remember, the journey is an epic expedition of learning and self-discovery. By finding that perfect balance of confidence,
                 you'll be ready to tackle challenges and seize moments , making your journey a thrilling adventure! The "Confidence Compass"
                 is a great tool to help you understand how you see yourself and ultimately understand how it affects your life.</h5>
             <div className="flex flex-row justify-center gap-2">
@@ -152,9 +152,9 @@ function Confidence() {
             <div className="flex flex-col gap-4">
                 <h4 className='font-bold'>Instruction:</h4>
                 <ul>
-                    <li><span className="font-bold">Be Honest Remember,</span> being real with yourself is key.</li>
+                    <li><span className="font-bold">Be Honest</span> Remember, being real with yourself is key.</li>
                     <li><span className="font-bold">Review</span> Look at the self-esteem traits listed in the chart.</li>
-                    <li><span className="font-bold">Select</span> select the traits that match up with how you feel about yourself This will help you visualize
+                    <li><span className="font-bold">Select</span> The traits that match up with how you feel about yourself. This will help you visualize
                         how most of your traits are categorized.</li>
                 </ul>
             </div>
@@ -214,11 +214,11 @@ function Confidence() {
                         </td>
                         <td className='p-3 border-2'>
                             <ul>
-                                <li> Demanding: May demand special treatment or expect others to do things for them</li>
-                                <li> Ungrateful May not show gratitude</li>
-                                <li> Selfish: May only see their own needs and feel the rules don't apply to them</li>
-                                <li> Deserving:May feel like they deserve something they haven't earned.
-                                    Need for Attention: May have a constant need to be the center of attention.</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Demanding: May demand special treatment or expect others to do things for them</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Ungrateful May not show gratitude</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Selfish: May only see their own needs and feel the rules don't apply to them</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Deserving:May feel like they deserve something they haven't earned.</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Need for Attention: May have a constant need to be the center of attention.</li>
                             </ul>
                         </td>
                     </tr>
@@ -230,10 +230,10 @@ function Confidence() {
                         </td>
                         <td className='p-3 border-2'>
                             <ul>
-                                <li> Comfortable inexpressing needs and opinions</li>
-                                <li> Confident in ability to make decisions</li>
-                                <li> Able to form secure and honest relationships,and stop unhealthy ones</li>
-                                <li> More resilienti better able to deal with life'scurveballs and setbacks</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Comfortable inexpressing needs and opinions</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Confident in ability to make decisions</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Able to form secure and honest relationships and stop unhealthy ones</li>
+                                <li><span className="font-bold text-ib-2">☑</span> More resilienti better able to deal with life'scurveballs and setbacks</li>
                             </ul>
                         </td>
                     </tr>
@@ -246,12 +246,12 @@ function Confidence() {
                         </td>
                         <td className='p-3 border-2'>
                             <ul>
-                                <li> All-or-nothing thinking. You see things as either all good or all bad.</li>
-                                <li> Overgeneralization. You assume that one negative fact or event creates a general rule for your life.</li>
-                                <li> Mental filtering. You focus only on the negative aspects of life, dwell on them, and magnify them.</li>
-                                <li> Turning positives into negatives.</li>
-                                <li> Jumping to negative conclusions. You assume the worst, even when you have no evidence to support it.</li>
-                                <li> Mistaking feelings for facts. You feel stupid, lazy, or ugly, so determine that
+                                <li><span className="font-bold text-ib-2">☑</span> All-or-nothing thinking. You see things as either all good or all bad.</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Overgeneralization. You assume that one negative fact or event creates a general rule for your life.</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Mental filtering. You focus only on the negative aspects of life, dwell on them, and magnify them.</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Discounting the positive — minimizing or dismissing positive experiences.</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Jumping to negative conclusions. You assume the worst, even when you have no evidence to support it.</li>
+                                <li><span className="font-bold text-ib-2">☑</span> Mistaking feelings for facts. You feel stupid, lazy, or ugly, so determine that
                                     it's true. Personalizing everything.You assume everything negative has something to do with you.
                                 </li>
                             </ul>
