@@ -97,15 +97,14 @@ function JordanStory() {
                     </div>
                     <img src={Image14} alt="" className='w-20' />
                 </div>
-                <h5>Once upon a time in a bustling middle school, there was a boy named Jordon. He was an average student with a passion for music.
+                <h5>Once upon a time in a bustling middle school, there was a boy named Jordon. He was an average student with a passion for music,
                     but when it came to science, he found himself struggling. The concepts felt foreign, and the numbers danced around in his mind,
                     leaving him lost and frustrated.
 
                     One fateful day, the results of his science exam were handed back to the class. As Jordan stared at the red ink glaring at him from
-                    the paper-an unforgiving "F"-his heart sank
-                    Without thinking, he ripped the paper in half. his anger boiling over. 'This is why I don't try in this class I hate science,
+                    the paper-an unforgiving "F"-his heart sank without thinking, he ripped the paper in half, his anger boiling over. "This is why I don't try in this class, I hate science,
                     and I'm never going to pass!" he yelled, his voice echoing through the room. The humiliation mixed with rage fueled his rebellion.
-                    In the weeks that followed, Jordan stopped attending science class altogether. On the rare occasions he did show up, he would sit in the back. hoodie
+                    In the weeks that followed, Jordan stopped attending science class altogether. On the rare occasions he did show up, he would sit in the back, hoodie
                     pulled over his head, trying to disappear into the fabric. When the teacher droned on about chemical reactions, he buried his head on the desk
                     opting for a nap over the struggle.</h5>
                 <div className="flex flex-row justify-center">
@@ -115,7 +114,7 @@ function JordanStory() {
                     even glancing at the material. When his teacher asked to meet with him after class, she expressed her concern. "I've noticed you haven't
                     been putting in much effort lately. If you want to pass, you need to start showing that you care about your work" she said, her voice firm but concerned.
 
-                    "Nah, what's the use.....I'm cool." he replied, dismissing her words. Inside, he thought. "I can handle failing without effort, but I can't
+                    "Nah, what's the use.....I'm cool" he replied, dismissing her words. Inside, he thought, "I can handle failing without effort, but I can't
                     withstand putting in effort and not passing." This mindset became his shield, a wall he fortified with each negative.. thought.
                     Slowly he found himself withdrawing from all aspects of school, and even his friends began to fade away, unable to reach the boy who had become a
                     ghost of his former self.
