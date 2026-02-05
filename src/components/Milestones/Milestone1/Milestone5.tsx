@@ -21,7 +21,7 @@ const items = [
     { value: "Perseverance" },
     { value: "Freedom" },
     { value: "Growth" },
-    { value: "Leadershopi" },
+    { value: "Leadership" },
     { value: "Excellence" },
     { value: "Kindness" },
     { value: "Innovation" },
