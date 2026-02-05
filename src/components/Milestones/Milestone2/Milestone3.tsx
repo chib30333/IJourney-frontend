@@ -11,21 +11,20 @@ import { CircleAlert } from "lucide-react";
 
 import Image12 from "../../../assets/image/png/12.png";
 import Image13 from "../../../assets/image/png/13.png";
-import ImageEachOther from "../../../assets/image/milestones/each-other.png";
 import { useEffect, useState } from 'react';
 
 const guidePosts: any = [
     {
         title: "Self-Awareness",
-        text: "She learned to recognize and name intense emotions like anger and frustration instead of ignoring them.",
+        text: "Instead of ignoring feelings like frustration or loneliness, Mia learned to recognize and name her emotions.",
     },
     {
         title: "Effective Problem Solving",
-        text: "Mia developed coping mechanisms: pausing, regulating feelings, and re-engaging rather than quitting.",
+        text: "Instead of giving up, Mia practiced pausing, thinking through the problem, and trying again.",
     },
     {
         title: "Managing Emotions",
-        text: "Serves as your emotions steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulsive wrong turns",
+        text: "When Mia felt overwhelmed by her emotions, she used to suppress them or give up. But through emotional intelligence, she learned to pause instead of reacting immediately. When she felt frustrated, she took a deep breath, accurately identified her emotions, and chose how to respond. By learning to manage her emotions, Mia was able to stay present even in difficult situations.",
     },
 ]
 
@@ -119,9 +118,6 @@ function MiaStory() {
                     just as a smart student but as a compassionate friend, a confident communicator, and a resilient young woman And that she realized,
                     was the key to a rich and fulfilling life.
                 </p>
-                <div className="flex justify-center">
-                    <img src={ImageEachOther} alt="" className='w-1/3' />
-                </div>
                 <div className="">
                     <h4 className='font-bold'>The Problem</h4>
                     <h6>Mia was academically gifted, but she felt lonely and disconnected. When setbacks happened, she quickly became frustrated and often
