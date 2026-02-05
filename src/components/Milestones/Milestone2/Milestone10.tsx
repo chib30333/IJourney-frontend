@@ -80,8 +80,12 @@ function IntroCharacter() {
     return (
         <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center text-center">
-                <h2 className="font-bold">M2.10: The 24 Character Strengths</h2>
+                <h3 className="font-bold">M2.10: The 24 Character Strengths</h3>
                 <h6>Select the character strengths</h6>
+            </div>
+            <div className="flex flex-col">
+                <h5>Asks student to pick character strengths before having them take the VIA character assessment</h5>
+                <a href='https://www.viacharacter.org/survey/account/register' target='blank' className='text-ib-2 font-bold underline'>https://www.viacharacter.org/survey/account/register</a>
             </div>
             <div className="flex flex-col justify-center items-center gap-10">
                 <div className="grid sm:grid-cols-3 md:grid-cols-4 gap-4">
