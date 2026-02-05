@@ -72,7 +72,7 @@ function ExploreEmotion() {
                         Everyone there was chasing their dreams instead of just letting life happen to them. Like, none of my family has gone to college,
                         but being on that campus made me picture myself as a student.
                         I mean, I have no clue how I'd actually get there, but just thinking about it felt amazing. This workbook might help me figure things out,
-                        and I'm excited about what I can discover about my.self. So, I guess I would describe it more by saying I feel  helpful."</p>
+                        and I'm excited about what I can discover about my.self. So, I guess I would describe it more by saying I feel hopeful."</p>
                 </div>
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-col sm:flex-row justify-center gap-4 items-center">
