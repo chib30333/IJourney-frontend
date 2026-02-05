@@ -16,16 +16,16 @@ import { useEffect, useState } from 'react';
 
 const guidePosts: any = [
     {
-        title: 'Self-Awareness',
-        text: 'She learned to recognize and name intense emotions like anger and frustration instead of ignoring them.',
+        title: "Self-Awareness",
+        text: "She learned to recognize and name intense emotions like anger and frustration instead of ignoring them.",
     },
     {
-        title: 'Effective Problem Solving',
-        text: 'Mia developed coping mechanisms: pausing, regulating feelings, and re-engaging rather than quitting.'
+        title: "Effective Problem Solving",
+        text: "Mia developed coping mechanisms: pausing, regulating feelings, and re-engaging rather than quitting."
     },
     {
-        title: 'Managing Emotions',
-        text: 'Serves as your emotions steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulsive wrong turns'
+        title: "Managing Emotions",
+        text: "Serves as your emotions steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulsive wrong turns"
     }
 ]
 
