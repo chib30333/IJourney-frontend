@@ -21,12 +21,12 @@ const guidePosts: any = [
     },
     {
         title: "Effective Problem Solving",
-        text: "Mia developed coping mechanisms: pausing, regulating feelings, and re-engaging rather than quitting."
+        text: "Mia developed coping mechanisms: pausing, regulating feelings, and re-engaging rather than quitting.",
     },
     {
         title: "Managing Emotions",
-        text: "Serves as your emotions steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulsive wrong turns"
-    }
+        text: "Serves as your emotions steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulsive wrong turns",
+    },
 ]
 
 function MiaStory() {

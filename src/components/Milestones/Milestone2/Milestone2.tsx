@@ -16,22 +16,22 @@ const guidePosts: any = [
     },
     {
         title: "Effective Problem Solving",
-        text: "Instead of reacting on impluse, you'll study the game board, strategize, and come up with solutions that checkmate the problem"
+        text: "Instead of reacting on impluse, you'll study the game board, strategize, and come up with solutions that checkmate the problem",
     },
     {
         title: "Managing Emotions",
-        text: "Serves as your emotions steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulse wrong turns"
+        text: "Serves as your emotions steering wheel, When the road gets rough with stress, you'll be able to pull over, breathe, and steer clear of impulse wrong turns",
     },
     {
         title: "Smart Decision Making",
-        text: "A powerful tool helping your blend emotional wisdom with logical thinking to make the best choice"
+        text: "A powerful tool helping your blend emotional wisdom with logical thinking to make the best choice",
     },
     {
         title: "Using Empathy in Relationships",
-        text: "Your secret weapon to building connections with others,"
+        text: "Your secret weapon to building connections with others",
     }, {
         title: "Taking Responsibility for Actions",
-        text: "Admitting mistakes shows maturity and honesty. It impactes does around you and taking steps to fix errors demonstrates care, strengthening your character"
+        text: "Admitting mistakes shows maturity and honesty. It impactes does around you and taking steps to fix errors demonstrates care, strengthening your character",
     },
 ]
 
