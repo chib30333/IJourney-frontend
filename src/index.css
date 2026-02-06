@@ -314,7 +314,6 @@ body {
   bottom: 0;
   right: 0;
   background: #fff;
-  opacity: 0.5;
   z-index: 100000000;
   display: flex;
   justify-content: center;
