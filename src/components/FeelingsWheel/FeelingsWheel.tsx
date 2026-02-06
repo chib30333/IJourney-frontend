@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { emotions } from "./data";
 import { useSunburst, getNodeColor, getTextTransform } from "./useSunburst";
 import { EmotionDetails } from "./EmotionDetails";
 import type { FeelingsWheelProps } from "../../lib/types";
+import { Button } from "../../elements";
+import { ArrowRightFromLineIcon } from "lucide-react";
 
 const SIZE = 620;
 const RADIUS = SIZE / 2;
@@ -11,8 +14,8 @@ export function FeelingsWheel({
     selectedEmotion,
     onSelectEmotion,
 }: FeelingsWheelProps) {
-
     const { nodes, arc, centerRadius } = useSunburst(emotions, RADIUS);
+    const [showModel, setShowModel] = useState<boolean>(false);
 
     return (
         <div className="flex flex-col md:flex-row gap-8 items-center">
@@ -27,7 +30,10 @@ export function FeelingsWheel({
                                     d={arc(d) ?? undefined}
                                     fill={getNodeColor(d)}
                                     className="cursor-pointer hover:opacity-80 transition"
-                                    onClick={() => onSelectEmotion(d.data)}
+                                    onClick={() => {
+                                        onSelectEmotion(d.data);
+                                        setShowModel(true);
+                                    }}
                                 />
                             ))
                     }
@@ -105,7 +111,10 @@ export function FeelingsWheel({
                 </g>
             </svg>
 
-            <div className="w-full max-w-sm hidden">
+            <div className={`w-full fixed max-w-sm flex flex-col top-20 gap-4 z-1 transition-all ${!showModel ? "-right-100" : "md:right-10 right-2"}`}>
+                <Button onClick={() => setShowModel(false)} title='close' className='absolute right-0 text-white cursor-pointer hover:text-gray-500'>
+                    <ArrowRightFromLineIcon />
+                </Button>
                 <EmotionDetails emotion={selectedEmotion} />
             </div>
         </div>

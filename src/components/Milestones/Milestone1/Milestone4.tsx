@@ -110,7 +110,8 @@ function InteractiveFeelingsWheel() {
                     selectedEmotion={selectedEmotion}
                     onSelectEmotion={(emotion) => {
                         setSelectedEmotion(emotion);
-                    }} />
+                    }}
+                    />
             </div>
             <div className="flex flex-col gap-6">
                 <h4 className='font-bold'>Reflect on Your Emotion</h4>
