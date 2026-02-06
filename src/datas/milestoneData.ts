@@ -1,5 +1,3 @@
-import type { EmotionNode } from "../lib/types"
-
 export const milestoneData = {
     characterStrengths: [
         {
