@@ -19,7 +19,7 @@ function InteractiveFeelingsWheel() {
     const { user } = useAuth();
     const [buttonDisabledStatus, setbuttonDisabledStatus] = useState<boolean>(true);
     const [selectedEmotion, setSelectedEmotion] = useState<EmotionNode | null>(null);
-    const [savedEntry, setSavedEntry] = useState<EmotionNode[]>();
+    const [savedEntry, setSavedEntry] = useState<EmotionNode[]>([]);
     const [nextButtonDisabledState, setnextButtonDisabledState] = useState<boolean>(true);
 
     useEffect(() => {
@@ -67,12 +67,12 @@ function InteractiveFeelingsWheel() {
     }
 
     const handleSaveEntry = (emotion: EmotionNode) => {
-        savedEntry?.push(emotion);
+        setSavedEntry((prev) => [...(prev || []), emotion]);
         setSelectedEmotion(null);
     }
 
     const handleDeleteSavedEntry = (index: number) => {
-        setSavedEntry(savedEntry?.filter((item: any, i: number) => i !== index && { ...item }));
+        setSavedEntry((prev) => prev?.filter((_, i) => i !== index));
     }
 
     useEffect(() => {
@@ -159,17 +159,17 @@ function InteractiveFeelingsWheel() {
                         <span>Progress:</span><span>{savedEntry?.length}</span>
                     </h4>
                     {
-                        savedEntry?.map((item: any, index: number) => (
+                        savedEntry?.map((item: EmotionNode, index: number) => (
                             <Card key={index} className="flex flex-col w-full rounded-none items-start overflow-hidden border-2 border-gray-300 border-dashed">
                                 <CardContent className="flex flex-col items-start gap-2 py-3 px-5 relative w-full">
                                     <h5><span className="font-bold text-[#0B93CD]">Entry Saved</span></h5>
                                     <div className="flex justify-between w-full items-end">
                                         <div className="">
                                             <h6>
-                                                <span className="font-semibold">Selected Emotion:</span>&nbsp;<span>{item.emotion}</span>
+                                                <span className="font-semibold">Selected Emotion:</span>&nbsp;<span>{item.name}</span>
                                             </h6>
                                             <h6>
-                                                <span className="font-semibold">Description:</span>&nbsp;<span>{item.description}</span>
+                                                <span className="font-semibold">Description:</span>&nbsp;<span>{item.experience}</span>
                                             </h6>
                                         </div>
                                         <div onClick={() => handleDeleteSavedEntry(index)} className="p-2 rounded-full bg-[#ff6f61] border-2 border-[#ff6f61] hover:bg-[#ff6f61]/80 group cursor-pointer">
