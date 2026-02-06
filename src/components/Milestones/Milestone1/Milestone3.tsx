@@ -97,7 +97,10 @@ function ExploreEmotion() {
                 <img src={ImageLamp} alt="" className='h-30' />
             </div>
             <div className="flex items-center justify-center">
-                <FeelingsWheel />
+                <FeelingsWheel
+                    selection={false}
+                    selectedEmotion={null}
+                    onSelectEmotion={() => { }} />
             </div>
             <div className="flex justify-between w-full gap-2 text-center">
                 <CustomButton onClickFunc={previous} title='previous' className='rounded-none justify-end' type='move'></CustomButton>

@@ -1,15 +1,16 @@
-import { useState } from "react";
 import { emotions } from "./data";
 import { useSunburst, getNodeColor, getTextTransform } from "./useSunburst";
 import { EmotionDetails } from "./EmotionDetails";
-import type { EmotionNode } from "../../lib/types";
+import type { FeelingsWheelProps } from "../../lib/types";
 
 const SIZE = 620;
 const RADIUS = SIZE / 2;
 
-export function FeelingsWheel() {
-    const [selectedEmotion, setSelectedEmotion] =
-        useState<EmotionNode | null>(null);
+export function FeelingsWheel({
+    selection,
+    selectedEmotion,
+    onSelectEmotion,
+}: FeelingsWheelProps) {
 
     const { nodes, arc, centerRadius } = useSunburst(emotions, RADIUS);
 
@@ -26,7 +27,7 @@ export function FeelingsWheel() {
                                     d={arc(d) ?? undefined}
                                     fill={getNodeColor(d)}
                                     className="cursor-pointer hover:opacity-80 transition"
-                                    onClick={() => setSelectedEmotion(d.data)}
+                                    onClick={() => onSelectEmotion(d.data)}
                                 />
                             ))
                     }
@@ -80,22 +81,26 @@ export function FeelingsWheel() {
                             </textPath>
                         </text>
 
-                        {/* <text
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                            y={-6}
-                            style={{ fontSize: 64 }}
-                        >
-                            {selectedEmotion?.emoji}
-                        </text>
+                        {selection && selectedEmotion?.emoji && (
+                            <text
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                                y={-6}
+                                style={{ fontSize: 64 }}
+                            >
+                                {selectedEmotion?.emoji}
+                            </text>
+                        )}
 
-                        <text
-                            textAnchor="middle"
-                            y={36}
-                            className="fill-gray-800 font-semibold text-sm"
-                        >
-                            {selectedEmotion?.name}
-                        </text> */}
+                        {selection && (
+                            <text
+                                textAnchor="middle"
+                                y={selectedEmotion?.emoji ? 36 : 12}
+                                className="fill-red-500 font-bold text-sm"
+                            >
+                                {selectedEmotion?.name}
+                            </text>
+                        )}
                     </g>
                 </g>
             </svg>
