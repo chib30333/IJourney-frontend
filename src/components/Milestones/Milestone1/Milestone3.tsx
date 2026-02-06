@@ -1,8 +1,9 @@
-
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
+import type { EmotionNode } from '../../../lib/types';
 
 import { FeelingsWheel } from '../../FeelingsWheel/FeelingsWheel';
 import { CustomButton } from "../../../elements/buttons";
@@ -15,6 +16,7 @@ import IconSparker from "../../../assets/image/milestones/sparker.svg";
 function ExploreEmotion() {
     const navigate = useNavigate();
     const { user } = useAuth();
+    const [selectedEmotion, setSelectedEmotion] = useState<EmotionNode | null>(null);
     const next = async () => {
         if (user) {
             try {
@@ -98,9 +100,12 @@ function ExploreEmotion() {
             </div>
             <div className="flex items-center justify-center">
                 <FeelingsWheel
-                    selection={false}
-                    selectedEmotion={null}
-                    onSelectEmotion={() => { }} />
+                    selection={true}
+                    selectedEmotion={selectedEmotion}
+                    onSelectEmotion={(emotion) => {
+                        setSelectedEmotion(emotion);
+                    }}
+                />
             </div>
             <div className="flex justify-between w-full gap-2 text-center">
                 <CustomButton onClickFunc={previous} title='previous' className='rounded-none justify-end' type='move'></CustomButton>
