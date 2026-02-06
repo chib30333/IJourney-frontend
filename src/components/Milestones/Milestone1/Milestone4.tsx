@@ -11,7 +11,7 @@ import { Progress } from '../../../elements/progress';
 import { CustomButton } from '../../../elements/buttons';
 import { Card, CardContent } from '../../../elements/card';
 
-import ImageFeelingWheel from "../../../assets/image/milestones/feeling-wheel.png";
+import { FeelingsWheel } from '../../FeelingsWheel/FeelingsWheel';
 
 const emotions = [
     { value: "Happy" },
@@ -25,7 +25,7 @@ const emotions = [
     { value: "Amazed" },
     { value: "Contempt" },
     { value: "Shocked" }
-]
+];
 
 function InteractiveFeelingsWheel() {
     const navigate = useNavigate();
@@ -108,8 +108,8 @@ function InteractiveFeelingsWheel() {
                 <h3 className="font-bold text-center">M1.4: The Interactive Feelings Wheel</h3>
                 <h6>Click on specific emotions to explore and reflect on your feelings</h6>
             </div>
-            <div className="flex justify-center">
-                <img src={ImageFeelingWheel} alt="" />
+            <div className="flex items-center justify-center">
+                <FeelingsWheel />
             </div>
             <div className="flex flex-col gap-6">
                 <h4 className='font-bold'>Reflect on Your Emotion</h4>

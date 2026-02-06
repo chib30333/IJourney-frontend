@@ -4,12 +4,12 @@ import { useAuth } from '../../../context/AuthContext';
 import { unlockNext } from '../../../controllers/courseController';
 import toast from 'react-hot-toast';
 
+import { FeelingsWheel } from '../../FeelingsWheel/FeelingsWheel';
 import { CustomButton } from "../../../elements/buttons";
 import { Input } from '../../../elements/input';
 
 import ImageMentalHealth from "../../../assets/image/milestones/mental-health.png";
 import ImageLamp from "../../../assets/image/milestones/lamp.png";
-import ImageFeelingWheel from "../../../assets/image/milestones/feeling-wheel.png";
 import IconSparker from "../../../assets/image/milestones/sparker.svg";
 
 function ExploreEmotion() {
@@ -96,8 +96,8 @@ function ExploreEmotion() {
                 <img src={ImageMentalHealth} alt="" className='h-20' />
                 <img src={ImageLamp} alt="" className='h-30' />
             </div>
-            <div className="w-full flex justify-center">
-                <img src={ImageFeelingWheel} alt="" />
+            <div className="flex items-center justify-center">
+                <FeelingsWheel />
             </div>
             <div className="flex justify-between w-full gap-2 text-center">
                 <CustomButton onClickFunc={previous} title='previous' className='rounded-none justify-end' type='move'></CustomButton>
