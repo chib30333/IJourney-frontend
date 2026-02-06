@@ -79,3 +79,12 @@ export interface ChatResponse {
   response: string;
   formFields?: Record<string, unknown>;
 }
+
+export interface EmotionNode {
+  id: string,
+  name: string,
+  color?: string,
+  description?: string,
+  children? : EmotionNode[],
+  emoji?: string
+}
