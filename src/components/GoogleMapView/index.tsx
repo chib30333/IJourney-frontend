@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { Button } from '../../elements';
+import LoadingSpinner from '../Loader';
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 
@@ -40,7 +41,7 @@ const GoogleMapView: React.FC = () => {
     };
 
     if (loadError) return <p className="text-red-500">Map failed to load.</p>;
-    if (!isLoaded) return <p>Loading map…</p>;
+    if (!isLoaded) return <LoadingSpinner />
 
     return (
         <div className="w-full space-y-4 bg-white shadow-[0_4px_4px_rgba(0,0,0,0.16)] p-8">
