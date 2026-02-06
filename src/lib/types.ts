@@ -2,23 +2,23 @@ import type { User } from 'firebase/auth';
 export type Role = 'user' | 'admin';
 
 export interface InputValues {
-    name: string,
-    email: string;
-    password: string;
-    confirmPassword: string;
+  name: string,
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
 export interface AuthContextType {
-    user: User | null;
-    loading: boolean;
+  user: User | null;
+  loading: boolean;
 }
 
 export interface ProgressContextValue {
-    currentMilestone: number | null;
-    currentMilestoneChild: number | null;
-    progress: any;
-    loadingProgress: boolean;
-    refreshProgress: () => Promise<void>;
+  currentMilestone: number | null;
+  currentMilestoneChild: number | null;
+  progress: any;
+  loadingProgress: boolean;
+  refreshProgress: () => Promise<void>;
 };
 
 export interface UserProfile {
@@ -39,7 +39,7 @@ export interface Milestone {
   id: string;
   title: string;
   description?: string;
-  fields?: Array<{ name: string; label: string; type: 'text'|'textarea'|'select'|'radio'|'checkbox'; options?: string[] }>;
+  fields?: Array<{ name: string; label: string; type: 'text' | 'textarea' | 'select' | 'radio' | 'checkbox'; options?: string[] }>;
   order?: number;
 }
 
@@ -85,6 +85,13 @@ export interface EmotionNode {
   name: string,
   color?: string,
   description?: string,
-  children? : EmotionNode[],
+  experience?: string,
+  children?: EmotionNode[],
   emoji?: string
+}
+
+export interface FeelingsWheelProps {
+  selection: boolean;
+  selectedEmotion: EmotionNode | null;
+  onSelectEmotion: (emotion: EmotionNode) => void;
 }

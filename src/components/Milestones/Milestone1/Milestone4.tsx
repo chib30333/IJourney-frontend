@@ -12,28 +12,14 @@ import { CustomButton } from '../../../elements/buttons';
 import { Card, CardContent } from '../../../elements/card';
 
 import { FeelingsWheel } from '../../FeelingsWheel/FeelingsWheel';
-
-const emotions = [
-    { value: "Happy" },
-    { value: "Surprise" },
-    { value: "Disgust" },
-    { value: "Fear" },
-    { value: "Angry" },
-    { value: "Sad" },
-    { value: "Startld" },
-    { value: "Judge" },
-    { value: "Amazed" },
-    { value: "Contempt" },
-    { value: "Shocked" }
-];
+import type { EmotionNode } from '../../../lib/types';
 
 function InteractiveFeelingsWheel() {
     const navigate = useNavigate();
     const { user } = useAuth();
     const [buttonDisabledStatus, setbuttonDisabledStatus] = useState<boolean>(true);
-    const [emotion, setEmotion] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
-    const [savedEntry, setSavedEntry] = useState<Array<object>>([])
+    const [selectedEmotion, setSelectedEmotion] = useState<EmotionNode | null>(null);
+    const [savedEntry, setSavedEntry] = useState<EmotionNode[]>();
     const [nextButtonDisabledState, setnextButtonDisabledState] = useState<boolean>(true);
 
     useEffect(() => {
@@ -41,7 +27,7 @@ function InteractiveFeelingsWheel() {
             const getResponse = async () => {
                 const result = await getMilestone('milestone1_4');
                 if (result) {
-                    setSavedEntry(result.responses.entries as Array<object>);
+                    setSavedEntry(result.responses.entries as EmotionNode[]);
                     setbuttonDisabledStatus(false);
                     setnextButtonDisabledState(false);
                 }
@@ -69,23 +55,33 @@ function InteractiveFeelingsWheel() {
         navigate('/milestones/milestone1/3');
     };
 
-    const handleSaveEntry = () => {
-        savedEntry.push({ emotion, description });
-        setEmotion("");
-        setDescription("");
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        if (!selectedEmotion) {
+            toast.error("Please select the your own emotions");
+        } else {
+            setSelectedEmotion({
+                ...selectedEmotion,
+                experience: e.target.value,
+            });
+        }
+    }
+
+    const handleSaveEntry = (emotion: EmotionNode) => {
+        savedEntry?.push(emotion);
+        setSelectedEmotion(null);
     }
 
     const handleDeleteSavedEntry = (index: number) => {
-        setSavedEntry(savedEntry.filter((item: any, i: number) => i !== index && { ...item }));
+        setSavedEntry(savedEntry?.filter((item: any, i: number) => i !== index && { ...item }));
     }
 
     useEffect(() => {
-        if (savedEntry.length >= 5) {
+        if (savedEntry !== undefined && savedEntry?.length >= 5) {
             setbuttonDisabledStatus(false);
         } else {
             setbuttonDisabledStatus(true);
         }
-    }, [savedEntry.length])
+    }, [savedEntry?.length])
 
     const save = async () => {
         if (user) {
@@ -109,25 +105,23 @@ function InteractiveFeelingsWheel() {
                 <h6>Click on specific emotions to explore and reflect on your feelings</h6>
             </div>
             <div className="flex items-center justify-center">
-                <FeelingsWheel />
+                <FeelingsWheel
+                    selection={true}
+                    selectedEmotion={selectedEmotion}
+                    onSelectEmotion={(emotion) => {
+                        setSelectedEmotion(emotion);
+                    }} />
             </div>
             <div className="flex flex-col gap-6">
                 <h4 className='font-bold'>Reflect on Your Emotion</h4>
-                <div className="flex flex-row items-center gap-4">
-                    <label htmlFor="emotion" className="font-bold flex-1">Select Emotion:</label>
-                    <select name="" id="emotion" className="border p-2 flex-1" onChange={(e) => setEmotion(e.target.value)} value={emotion}>
-                        <option value="">--- select ---</option>
-                        {emotions.map((item, index) => (<option key={index} value={item.value}>{item.value}</option>))}
-                    </select>
-                </div>
                 <div className="flex flex-col gap-2">
-                    <h5>When did you last feel <i className='font-bold'>Panicked</i>? Please describe the situation.</h5>
+                    <h5>When did you last feel <i className='font-bold'>{selectedEmotion?.name}</i>? Please describe the situation.</h5>
                     <Textarea
                         id="description"
                         placeholder="Describe the situation..."
                         rows={5}
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        value={selectedEmotion?.experience ?? ""}
+                        onChange={handleChange}
                         className="resize-none text-gray-800 bg-white border-gray-500 placeholder:text-gray-400"
                     />
                 </div>
@@ -151,14 +145,20 @@ function InteractiveFeelingsWheel() {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <CustomButton onClickFunc={handleSaveEntry} title='Save Entry' className='rounded-full justify-end' type='sky' disabled={!emotion || !description}></CustomButton>
+                    <CustomButton onClickFunc={() => {
+                        if (!selectedEmotion) {
+                            toast.error("Please select your own emotions!");
+                            return;
+                        };
+                        handleSaveEntry(selectedEmotion);
+                    }} title='Save Entry' className='rounded-full justify-end' type='sky' disabled={!selectedEmotion}></CustomButton>
                 </div>
                 <div className="flex flex-col gap-4 p-6 bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
                     <h4 className="font-bold flex flex-row justify-between">
-                        <span>Progress:</span><span>{savedEntry.length}</span>
+                        <span>Progress:</span><span>{savedEntry?.length}</span>
                     </h4>
                     {
-                        savedEntry.map((item: any, index: number) => (
+                        savedEntry?.map((item: any, index: number) => (
                             <Card key={index} className="flex flex-col w-full rounded-none items-start overflow-hidden border-2 border-gray-300 border-dashed">
                                 <CardContent className="flex flex-col items-start gap-2 py-3 px-5 relative w-full">
                                     <h5><span className="font-bold text-[#0B93CD]">Entry Saved</span></h5>
@@ -179,7 +179,7 @@ function InteractiveFeelingsWheel() {
                             </Card>
                         ))
                     }
-                    {savedEntry.length === 0 && <p className="text-gray-500">No entries saved.</p>}
+                    {savedEntry?.length === 0 || savedEntry === undefined && <p className="text-gray-500">No entries saved.</p>}
                     <div className="flex justify-end gap-2">
                         <CustomButton onClickFunc={save} title='save' className='rounded-none' type='red' disabled={buttonDisabledStatus}></CustomButton>
                     </div>
