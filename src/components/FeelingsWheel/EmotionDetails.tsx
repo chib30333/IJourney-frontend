@@ -18,7 +18,7 @@ export function EmotionDetails({ emotion }: Props) {
             className="p-4 rounded-xl text-white shadow-lg transition-all"
             style={{ backgroundColor: emotion.color }}
         >
-            <h2 className="text-2xl font-bold">{emotion.name}</h2>
+            <h2 className="text-2xl font-bold">{emotion.emoji}{emotion.name}</h2>
             {emotion.description && (
                 <p className="mt-2 text-sm opacity-90">
                     {emotion.description}
